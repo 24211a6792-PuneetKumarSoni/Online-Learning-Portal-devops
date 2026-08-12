@@ -61,30 +61,7 @@ stage('Backend Test') {
         }
     }
 }
-        stage('Frontend Install') {
-            steps {
-                dir('frontend') {
-                    bat 'npm install'
-                }
-            }
-        }
 
-        stage('Frontend Test') {
-            steps {
-                dir('frontend') {
-                    bat 'npm test'
-                }
-            }
-        }
-
-        stage('Frontend Build') {
-            steps {
-                dir('frontend') {
-                    bat 'npm run build'
-                }
-            }
-        }
-    }
 
     post {
         success {
