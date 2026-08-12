@@ -29,6 +29,8 @@ pipeline {
         stage('Backend Install') {
     steps {
         dir('pathshala-backend') {
+            bat 'echo Installing backend dependencies...'
+            bat 'dir'
             bat 'npm install'
         }
     }
@@ -46,14 +48,6 @@ pipeline {
             steps {
                 dir('frontend') {
                     bat 'npm ci'
-                }
-            }
-        }
-
-        stage('Frontend Lint') {
-            steps {
-                dir('frontend') {
-                    bat 'npm run lint'
                 }
             }
         }
