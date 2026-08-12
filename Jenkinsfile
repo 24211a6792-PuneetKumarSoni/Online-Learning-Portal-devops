@@ -28,7 +28,14 @@ pipeline {
 
         stage('Backend Install') {
     steps {
+        bat 'echo Current directory:'
+        bat 'cd'
+        bat 'dir'
+        
         dir('backend') {
+            bat 'echo Inside backend:'
+            bat 'cd'
+            bat 'dir'
             bat 'npm install'
         }
     }
