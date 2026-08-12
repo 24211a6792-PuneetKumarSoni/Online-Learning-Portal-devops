@@ -7,14 +7,30 @@ pipeline {
 
     environment {
         CI = 'true'
+        REPO = 'https://github.com/24211a6792-PuneetKumarSoni/Online-Learning-Portal-devops.git'
     }
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Backend') {
             steps {
-                echo 'Cloning GitHub repository...'
-                checkout scm
+                echo 'Checking out backend branch...'
+
+                dir('pathshala-backend') {
+                    git branch: 'Revan(Backend)',
+                        url: "${REPO}"
+                }
+            }
+        }
+
+        stage('Checkout Frontend') {
+            steps {
+                echo 'Checking out frontend branch...'
+
+                dir('frontend') {
+                    git branch: 'bhanu(frontend)',
+                        url: "${REPO}"
+                }
             }
         }
 
@@ -27,14 +43,13 @@ pipeline {
         }
 
         stage('Backend Install') {
-    steps {
-        dir('pathshala-backend') {
-            bat 'echo Installing backend dependencies...'
-            bat 'dir'
-            bat 'npm install'
+            steps {
+                dir('pathshala-backend') {
+                    bat 'dir'
+                    bat 'npm install'
+                }
+            }
         }
-    }
-}
 
         stage('Backend Test') {
             steps {
@@ -47,7 +62,7 @@ pipeline {
         stage('Frontend Install') {
             steps {
                 dir('frontend') {
-                    bat 'npm ci'
+                    bat 'npm install'
                 }
             }
         }
