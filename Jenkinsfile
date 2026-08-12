@@ -12,23 +12,12 @@ pipeline {
 
     stages {
 
-stage('Checkout Backend') {
-    steps {
-        echo 'Checking out backend branch...'
-
-        dir('pathshala-backend') {
-            git branch: 'Revan(Backend)',
-                url: "${REPO}"
-        }
-    }
-}
-
-        stage('Checkout Frontend') {
+        stage('Checkout Backend') {
             steps {
-                echo 'Checking out frontend branch...'
+                echo 'Checking out backend branch...'
 
-                dir('frontend') {
-                    git branch: 'bhanu(frontend)',
+                dir('pathshala-backend') {
+                    git branch: 'Revan(Backend)',
                         url: "${REPO}"
                 }
             }
@@ -42,26 +31,25 @@ stage('Checkout Backend') {
             }
         }
 
+        stage('Backend Install') {
+            steps {
+                dir('pathshala-backend/pathshala-backend') {
+                    echo 'Installing backend dependencies...'
+                    bat 'dir'
+                    bat 'npm install'
+                }
+            }
+        }
 
-
-stage('Backend Install') {
-    steps {
-        dir('pathshala-backend/pathshala-backend') {
-            bat 'echo Installing backend dependencies...'
-            bat 'dir'
-            bat 'npm install'
+        stage('Backend Test') {
+            steps {
+                dir('pathshala-backend/pathshala-backend') {
+                    echo 'Running backend tests...'
+                    bat 'npm test'
+                }
+            }
         }
     }
-}
-
-stage('Backend Test') {
-    steps {
-        dir('pathshala-backend/pathshala-backend') {
-            bat 'npm test'
-        }
-    }
-}
-
 
     post {
         success {
