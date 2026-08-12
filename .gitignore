@@ -1,0 +1,7 @@
+node_modules/
+pathshala-backend/node_modules/
+.env
+pathshala-backend/.env
+*.log
+.DS_Store
+Thumbs.db
