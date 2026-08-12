@@ -28,14 +28,7 @@ pipeline {
 
         stage('Backend Install') {
     steps {
-        bat 'echo Current directory:'
-        bat 'cd'
-        bat 'dir'
-        
-        dir('backend') {
-            bat 'echo Inside backend:'
-            bat 'cd'
-            bat 'dir'
+        dir('pathshala-backend') {
             bat 'npm install'
         }
     }
@@ -43,7 +36,7 @@ pipeline {
 
         stage('Backend Test') {
             steps {
-                dir('backend') {
+                dir('pathshala-backend') {
                     bat 'npm test'
                 }
             }
