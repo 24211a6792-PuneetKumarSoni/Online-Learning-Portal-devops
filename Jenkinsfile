@@ -27,12 +27,12 @@ pipeline {
         }
 
         stage('Backend Install') {
-            steps {
-                dir('backend') {
-                    bat 'npm ci'
-                }
-            }
+    steps {
+        dir('backend') {
+            bat 'npm install'
         }
+    }
+}
 
         stage('Backend Test') {
             steps {
