@@ -13,9 +13,9 @@ const DEFAULT_USERS = [
 ];
 
 const DEFAULT_COURSES = [
-  { id: "crs_cs101", code: "CS-101", title: "Intro to Neural Networks", facultyId: "usr_smith", desc: "Explore fundamentals of artificial intelligence, convolutional neural layers, backpropagation, and training optimization algorithms." },
-  { id: "crs_astro202", code: "ASTRO-202", title: "Cosmological Physics", facultyId: "usr_jones", desc: "A mathematical deep-dive into general relativity, gravity wells, dark energy, and stellar mechanics." },
-  { id: "crs_db303", code: "DB-303", title: "Database Systems & SQL", facultyId: "usr_faculty_default", desc: "Master relational database designs, schema normalization, indexing, transaction control logs, and advanced SQL scripting." }
+  { id: "crs_cs101", code: "CS-101", title: "Intro to Neural Networks", facultyId: "usr_smith", desc: "Explore fundamentals of artificial intelligence, convolutional neural layers, backpropagation, and training optimization algorithms.", duration: "8 Weeks", category: "Computer Science", resources: "• Lecture 1 Notes: Intro to Neural Nodes\n• Textbook Chapter 3: Perceptrons & Sigmoids\n• Lab Dataset: MNIST Digits zip" },
+  { id: "crs_astro202", code: "ASTRO-202", title: "Cosmological Physics", facultyId: "usr_jones", desc: "A mathematical deep-dive into general relativity, gravity wells, dark energy, and stellar mechanics.", duration: "10 Weeks", category: "Physics", resources: "• General Relativity Field Equations PDF\n• Schwarzschild Singularity Calculation Sheet\n• Astrophysics Reference Manual" },
+  { id: "crs_db303", code: "DB-303", title: "Database Systems & SQL", facultyId: "usr_faculty_default", desc: "Master relational database designs, schema normalization, indexing, transaction control logs, and advanced SQL scripting.", duration: "6 Weeks", category: "Software Engineering", resources: "• PostgreSQL Cheatsheet\n• E-R Diagram Modeling Guide\n• Normalization 1NF to 3NF Slides" }
 ];
 
 const DEFAULT_ENROLLMENTS = [
@@ -240,20 +240,34 @@ function switchLoginRole(role) {
   
   // Tab highlights
   document.querySelectorAll(".auth-tab").forEach(tab => tab.classList.remove("active"));
-  document.getElementById(`tab-${role}`).classList.add("active");
+  const activeTab = document.getElementById(`tab-${role}`);
+  if (activeTab) activeTab.classList.add("active");
   
-  // Label and elements toggle
+  // Elements toggle
   const formGroupName = document.getElementById("form-group-name");
+  const formGroupFacultyId = document.getElementById("form-group-faculty-id");
+  const formGroupPhone = document.getElementById("form-group-phone");
+  const formGroupDepartment = document.getElementById("form-group-department");
   const formGroupPassword = document.getElementById("form-group-password");
+  const formGroupConfirmPassword = document.getElementById("form-group-confirm-password");
   const btnSubmit = document.getElementById("btn-auth-submit");
   const autofills = document.getElementById("demo-autofills-container");
   
-  // Defaults
+  // Reset Visibility Defaults
   formGroupName.style.display = "none";
+  if (formGroupFacultyId) formGroupFacultyId.style.display = "none";
+  if (formGroupPhone) formGroupPhone.style.display = "none";
+  if (formGroupDepartment) formGroupDepartment.style.display = "none";
+  if (formGroupConfirmPassword) formGroupConfirmPassword.style.display = "none";
+  
   formGroupPassword.style.display = "block";
-  autofills.style.display = "block";
+  autofills.style.display = "none";
   
   document.getElementById("auth-name").required = false;
+  if (document.getElementById("auth-faculty-id")) document.getElementById("auth-faculty-id").required = false;
+  if (document.getElementById("auth-phone")) document.getElementById("auth-phone").required = false;
+  if (document.getElementById("auth-department")) document.getElementById("auth-department").required = false;
+  if (document.getElementById("auth-confirm-password")) document.getElementById("auth-confirm-password").required = false;
   document.getElementById("auth-password").required = true;
   
   document.getElementById("auth-main-title").innerText = "Pathshala Sign In";
@@ -261,7 +275,7 @@ function switchLoginRole(role) {
   document.getElementById("auth-logo-badge").innerHTML = `<i data-lucide="graduation-cap"></i>`;
   
   const labelEmail = document.querySelector('label[for="auth-email"]');
-  labelEmail.innerText = "Email Address";
+  labelEmail.innerText = "Email Address *";
   
   if (role === "student") {
     btnSubmit.querySelector("span").innerText = "Sign In as Student";
@@ -270,15 +284,33 @@ function switchLoginRole(role) {
     btnSubmit.querySelector("span").innerText = "Sign In as Parent";
     setupAutofillBox("parent@bvrit.ac.in", "parent123", "Parent");
   } else if (role === "faculty") {
-    btnSubmit.querySelector("span").innerText = "Sign In as Instructor";
+    btnSubmit.querySelector("span").innerText = "Sign In as Faculty";
     setupAutofillBox("faculty@bvrit.ac.in", "faculty123", "Faculty");
   } else if (role === "signup") {
     document.getElementById("auth-main-title").innerText = "Student Registration";
     document.getElementById("auth-main-subtitle").innerText = "Create a new student profile";
     formGroupName.style.display = "block";
+    if (formGroupConfirmPassword) formGroupConfirmPassword.style.display = "block";
     document.getElementById("auth-name").required = true;
-    btnSubmit.querySelector("span").innerText = "Register Account";
-    autofills.style.display = "none";
+    if (document.getElementById("auth-confirm-password")) document.getElementById("auth-confirm-password").required = true;
+    btnSubmit.querySelector("span").innerText = "Register Student Account";
+  } else if (role === "faculty-signup") {
+    document.getElementById("auth-main-title").innerText = "Faculty Registration";
+    document.getElementById("auth-main-subtitle").innerText = "Create a new faculty instructor account";
+    
+    formGroupName.style.display = "block";
+    if (formGroupFacultyId) formGroupFacultyId.style.display = "block";
+    if (formGroupPhone) formGroupPhone.style.display = "block";
+    if (formGroupDepartment) formGroupDepartment.style.display = "block";
+    if (formGroupConfirmPassword) formGroupConfirmPassword.style.display = "block";
+    
+    document.getElementById("auth-name").required = true;
+    if (document.getElementById("auth-faculty-id")) document.getElementById("auth-faculty-id").required = true;
+    if (document.getElementById("auth-phone")) document.getElementById("auth-phone").required = true;
+    if (document.getElementById("auth-department")) document.getElementById("auth-department").required = true;
+    if (document.getElementById("auth-confirm-password")) document.getElementById("auth-confirm-password").required = true;
+    
+    btnSubmit.querySelector("span").innerText = "Register Faculty Account";
   }
   
   lucide.createIcons();
@@ -286,6 +318,7 @@ function switchLoginRole(role) {
 
 function setupAutofillBox(email, pass, label) {
   const credentialsBox = document.getElementById("demo-credentials-info");
+  if (!credentialsBox) return;
   credentialsBox.innerHTML = `
     <div class="demo-credentials">
       <span>Email: ${email}</span>
@@ -317,7 +350,7 @@ function toggleForgotPasswordView(show) {
     tabs.style.display = "none";
     formGroupPass.style.display = "none";
     formGroupName.style.display = "none";
-    autofills.style.display = "none";
+    if (autofills) autofills.style.display = "none";
     document.getElementById("auth-password").required = false;
     
     btnSubmit.querySelector("span").innerText = "Send Recovery Link";
@@ -356,13 +389,22 @@ function handleAuthSubmit(event) {
   if (currentRoleTab === "signup") {
     const name = document.getElementById("auth-name").value.trim();
     const pass = document.getElementById("auth-password").value;
+    const confirmPass = document.getElementById("auth-confirm-password") ? document.getElementById("auth-confirm-password").value : pass;
     
+    if (!name) {
+      showToast("Please enter your full name.", "danger");
+      return;
+    }
     if (!email.endsWith("@bvrit.ac.in")) {
       showToast("Failed. Sign up restricted to @bvrit.ac.in domain.", "danger");
       return;
     }
     if (pass.length < 6) {
       showToast("Password must be at least 6 characters.", "danger");
+      return;
+    }
+    if (pass !== confirmPass) {
+      showToast("Password and Confirm Password do not match.", "danger");
       return;
     }
     if (db.users.some(u => u.email.toLowerCase() === email)) {
@@ -378,14 +420,86 @@ function handleAuthSubmit(event) {
       role: "student"
     };
     db.users.push(newStudent);
+    
+    // Auto-enroll in existing courses
+    db.courses.forEach(c => {
+      if (!db.enrollments.some(e => e.studentId === newStudent.id && e.courseId === c.id)) {
+        db.enrollments.push({
+          id: generateId("enr"),
+          studentId: newStudent.id,
+          courseId: c.id
+        });
+      }
+    });
+    
+    saveDB();
+    showToast(`Student account registered! Please sign in.`);
+    switchLoginRole("student");
+    document.getElementById("auth-email").value = email;
+    document.getElementById("auth-password").value = pass;
+    return;
+  }
+
+  // 3. Signup Faculty account
+  if (currentRoleTab === "faculty-signup") {
+    const name = document.getElementById("auth-name").value.trim();
+    const facultyId = document.getElementById("auth-faculty-id").value.trim().toUpperCase();
+    const phone = document.getElementById("auth-phone").value.trim();
+    const department = document.getElementById("auth-department").value.trim();
+    const pass = document.getElementById("auth-password").value;
+    const confirmPass = document.getElementById("auth-confirm-password").value;
+    
+    // Validations
+    if (!name || !facultyId || !phone || !department || !email || !pass || !confirmPass) {
+      showToast("Please fill in all required fields.", "danger");
+      return;
+    }
+    if (!email.endsWith("@bvrit.ac.in")) {
+      showToast("Faculty registration restricted to @bvrit.ac.in domain.", "danger");
+      return;
+    }
+    if (pass.length < 6) {
+      showToast("Password must be at least 6 characters long.", "danger");
+      return;
+    }
+    if (pass !== confirmPass) {
+      showToast("Password and Confirm Password do not match.", "danger");
+      return;
+    }
+    // Unique Email Check
+    if (db.users.some(u => u.email.toLowerCase() === email)) {
+      showToast("Duplicate account: Email address is already registered.", "danger");
+      return;
+    }
+    // Unique Faculty ID Check
+    if (db.users.some(u => u.facultyId && u.facultyId.toUpperCase() === facultyId)) {
+      showToast("Duplicate account: Faculty ID is already registered.", "danger");
+      return;
+    }
+    
+    const newFaculty = {
+      id: generateId("usr_fac"),
+      facultyId,
+      email,
+      password: pass,
+      name,
+      phone,
+      department,
+      role: "faculty"
+    };
+    
+    db.users.push(newFaculty);
     saveDB();
     
-    showToast(`Account registered successfully. Please sign in.`);
-    switchLoginRole("student");
+    showToast(`Faculty account created successfully! Please sign in.`, "success");
+    switchLoginRole("faculty");
+    
+    document.getElementById("auth-email").value = email;
+    document.getElementById("auth-password").value = pass;
     return;
   }
   
-  // 3. standard Sign in logins
+  // 4. Standard Sign in logins
   const pass = document.getElementById("auth-password").value;
   if (!email.endsWith("@bvrit.ac.in")) {
     showToast("Access Denied. Only @bvrit.ac.in email domains are permitted.", "danger");
@@ -456,6 +570,7 @@ function buildSidebar() {
   if (currentUser.role === "admin" || currentUser.role === "faculty") {
     navItems = [
       { id: "nav-fac-overview", label: "My Classrooms", icon: "book-open", panel: "panel-faculty-overview" },
+      { id: "nav-fac-courses", label: "Course Management", icon: "folder-plus", panel: "panel-faculty-courses" },
       { id: "nav-fac-materials", label: "Course Materials", icon: "upload-cloud", panel: "panel-faculty-materials" },
       { id: "nav-fac-creator", label: "Quiz/Assign Creator", icon: "plus-circle", panel: "panel-faculty-creator" },
       { id: "nav-fac-attendance", label: "Attendance Register", icon: "calendar", panel: "panel-faculty-attendance" },
@@ -510,6 +625,7 @@ function navigatePanel(panelId, navItemId = null) {
   } else {
     // Map panel highlights fallback
     if (panelId === "panel-faculty-overview") document.getElementById("nav-fac-overview")?.classList.add("active");
+    if (panelId === "panel-faculty-courses") document.getElementById("nav-fac-courses")?.classList.add("active");
     if (panelId === "panel-faculty-materials") document.getElementById("nav-fac-materials")?.classList.add("active");
     if (panelId === "panel-faculty-creator") document.getElementById("nav-fac-creator")?.classList.add("active");
     if (panelId === "panel-faculty-attendance") document.getElementById("nav-fac-attendance")?.classList.add("active");
@@ -587,6 +703,9 @@ function updateHeaderTitle(panelId) {
   } else if (panelId === "panel-faculty-overview") {
     titleEl.innerText = "Instructor Classrooms";
     subtitleEl.innerText = "Enter classroom manager dashboard desks.";
+  } else if (panelId === "panel-faculty-courses") {
+    titleEl.innerText = "Course Management Catalog";
+    subtitleEl.innerText = "Create, edit, or remove academic courses in your catalog.";
   } else if (panelId === "panel-faculty-classroom") {
     const course = db.courses.find(c => c.id === currentSelectedClassroomId);
     titleEl.innerText = course ? `${course.title} Manager` : "Classroom Panel";
@@ -633,27 +752,36 @@ function renderPanelContent(panelId) {
     const grid = document.getElementById("grid-student-courses");
     grid.innerHTML = "";
     
-    const enrolls = db.enrollments.filter(e => e.studentId === currentUser.id);
-    if (enrolls.length === 0) {
-      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; border:1px dashed var(--border); border-radius:var(--radius-lg);">No classrooms registered.</div>`;
+    // Filter student courses (enrolled or auto-assigned)
+    const enrolledIds = db.enrollments.filter(e => e.studentId === currentUser.id).map(e => e.courseId);
+    const studentCourses = db.courses.filter(c => enrolledIds.includes(c.id));
+    
+    if (studentCourses.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; border:1px dashed var(--border); border-radius:var(--radius-lg);">No active courses assigned or available yet.</div>`;
     } else {
-      enrolls.forEach(e => {
-        const c = db.courses.find(course => course.id === e.courseId);
-        if (c) {
-          const faculty = db.users.find(u => u.id === c.facultyId);
-          const div = document.createElement("div");
-          div.className = "course-card";
-          div.innerHTML = `
+      studentCourses.forEach(c => {
+        const faculty = db.users.find(u => u.id === c.facultyId);
+        const div = document.createElement("div");
+        div.className = "course-card";
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
             <span class="course-code">${c.code}</span>
-            <h3 class="course-title">${c.title}</h3>
-            <p class="course-desc">${c.desc}</p>
-            <div class="course-meta">
-              <span><i data-lucide="user"></i> ${faculty ? faculty.name : "Unassigned"}</span>
-              <span style="font-weight:700; color:var(--primary); cursor:pointer;" onclick="showToast('Classroom detail context loaded')">Active</span>
-            </div>
-          `;
-          grid.appendChild(div);
-        }
+            <span class="badge badge-info" style="font-size:10px;">${c.category || "General"}</span>
+          </div>
+          <h3 class="course-title">${c.title}</h3>
+          <p class="course-desc">${c.desc}</p>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px; display:flex; gap:14px;">
+            <span><i data-lucide="clock" style="width:12px; height:12px; display:inline;"></i> ${c.duration || "8 Weeks"}</span>
+            <span><i data-lucide="user" style="width:12px; height:12px; display:inline;"></i> ${faculty ? faculty.name : "Faculty"}</span>
+          </div>
+          <div class="course-meta" style="justify-content:flex-end; border-top:1px solid var(--border); padding-top:10px; margin-top:10px;">
+            <button class="btn btn-primary" style="padding:6px 12px; font-size:11px;" onclick="triggerStudentViewCourse('${c.id}')">
+              <i data-lucide="eye"></i>
+              <span>View Details & Materials</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(div);
       });
     }
     lucide.createIcons();
@@ -1163,6 +1291,49 @@ function renderPanelContent(panelId) {
               <span>Manage Desk</span>
               <i data-lucide="chevron-right"></i>
             </button>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+    lucide.createIcons();
+  }
+  else if (panelId === "panel-faculty-courses") {
+    const grid = document.getElementById("grid-faculty-manage-courses");
+    grid.innerHTML = "";
+    
+    const courses = currentUser.role === "admin" ? db.courses : db.courses.filter(c => c.facultyId === currentUser.id);
+    
+    if (courses.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; border:1px dashed var(--border); border-radius:var(--radius-lg);">You have not created any courses yet. Click "Create New Course" above to add your first course.</div>`;
+    } else {
+      courses.forEach(c => {
+        const enrolledCount = db.enrollments.filter(e => e.courseId === c.id).length;
+        const div = document.createElement("div");
+        div.className = "course-card";
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+            <span class="course-code">${c.code}</span>
+            <span class="badge badge-info" style="font-size:10px;">${c.category || "General"}</span>
+          </div>
+          <h3 class="course-title">${c.title}</h3>
+          <p class="course-desc">${c.desc}</p>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px; display:flex; flex-direction:column; gap:4px;">
+            <span><strong>Duration:</strong> ${c.duration || "Self-Paced"}</span>
+            <span><strong>Resources:</strong> ${c.resources ? c.resources.substring(0, 55) + '...' : 'None listed'}</span>
+          </div>
+          <div class="course-meta" style="justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; margin-top:10px;">
+            <span style="font-size:11px; color:var(--text-secondary);"><i data-lucide="users" style="width:12px; height:12px; display:inline;"></i> ${enrolledCount} Enrolled</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-secondary" style="padding:6px 10px; font-size:11px;" onclick="triggerEditCourseModal('${c.id}')">
+                <i data-lucide="edit"></i>
+                <span>Edit</span>
+              </button>
+              <button class="btn btn-secondary" style="padding:6px 10px; font-size:11px; color:#ef4444; border-color:rgba(239,68,68,0.3);" onclick="triggerDeleteCourseConfirmation('${c.id}')">
+                <i data-lucide="trash-2"></i>
+                <span>Delete</span>
+              </button>
+            </div>
           </div>
         `;
         grid.appendChild(div);
@@ -2045,6 +2216,171 @@ function saveAttendanceRegisterSheet() {
   
   saveDB();
   showToast("Attendance register sheet committed.");
+}
+
+// ==========================================
+// FACULTY COURSE MANAGEMENT CONTROLLERS
+// ==========================================
+
+function triggerAddCourseModal() {
+  document.getElementById("course-edit-id").value = "";
+  document.getElementById("modal-course-form-title").innerText = "Create New Course";
+  document.getElementById("btn-save-course-label").innerText = "Create & Publish Course";
+  
+  document.getElementById("course-title-input").value = "";
+  document.getElementById("course-code-input").value = "";
+  document.getElementById("course-duration-input").value = "";
+  document.getElementById("course-category-input").value = "";
+  document.getElementById("course-desc-input").value = "";
+  document.getElementById("course-resources-input").value = "";
+  
+  openModal("modal-course-form");
+}
+
+function triggerEditCourseModal(courseId) {
+  const course = db.courses.find(c => c.id === courseId);
+  if (!course) return;
+  
+  document.getElementById("course-edit-id").value = course.id;
+  document.getElementById("modal-course-form-title").innerText = `Edit Course: ${course.code}`;
+  document.getElementById("btn-save-course-label").innerText = "Update Course Details";
+  
+  document.getElementById("course-title-input").value = course.title || "";
+  document.getElementById("course-code-input").value = course.code || "";
+  document.getElementById("course-duration-input").value = course.duration || "";
+  document.getElementById("course-category-input").value = course.category || "";
+  document.getElementById("course-desc-input").value = course.desc || "";
+  document.getElementById("course-resources-input").value = course.resources || "";
+  
+  openModal("modal-course-form");
+}
+
+function handleSaveCourse(e) {
+  e.preventDefault();
+  
+  const editId = document.getElementById("course-edit-id").value;
+  const title = document.getElementById("course-title-input").value.trim();
+  const code = document.getElementById("course-code-input").value.trim().toUpperCase();
+  const duration = document.getElementById("course-duration-input").value.trim();
+  const category = document.getElementById("course-category-input").value.trim();
+  const desc = document.getElementById("course-desc-input").value.trim();
+  const resources = document.getElementById("course-resources-input").value.trim();
+  
+  if (editId) {
+    // Edit existing course
+    const idx = db.courses.findIndex(c => c.id === editId);
+    if (idx > -1) {
+      db.courses[idx].title = title;
+      db.courses[idx].code = code;
+      db.courses[idx].duration = duration;
+      db.courses[idx].category = category;
+      db.courses[idx].desc = desc;
+      db.courses[idx].resources = resources;
+      
+      saveDB();
+      closeModal("modal-course-form");
+      showToast(`Course "${code}: ${title}" updated successfully.`);
+    }
+  } else {
+    // Create new course
+    const newCourseId = generateId("crs");
+    const newCourse = {
+      id: newCourseId,
+      code,
+      title,
+      facultyId: currentUser.id,
+      desc,
+      duration,
+      category,
+      resources
+    };
+    
+    db.courses.push(newCourse);
+    
+    // Automatically assign/enroll all students so course immediately appears in their course list
+    const students = db.users.filter(u => u.role === "student");
+    students.forEach(stu => {
+      if (!db.enrollments.some(en => en.studentId === stu.id && en.courseId === newCourseId)) {
+        db.enrollments.push({
+          id: generateId("enr"),
+          studentId: stu.id,
+          courseId: newCourseId
+        });
+      }
+      
+      // Send notification alert
+      db.notifications.push({
+        id: generateId("ntf"),
+        userId: stu.id,
+        text: `New course published: ${code} - ${title}. Now available in your courses list.`,
+        date: new Date().toISOString().split("T")[0],
+        read: false
+      });
+    });
+    
+    saveDB();
+    closeModal("modal-course-form");
+    showToast(`Course "${code}: ${title}" created and published!`);
+    
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+    }
+  }
+  
+  renderPanelContent("panel-faculty-courses");
+  renderPanelContent("panel-faculty-overview");
+  renderPanelContent("panel-student-overview");
+}
+
+function triggerDeleteCourseConfirmation(courseId) {
+  const course = db.courses.find(c => c.id === courseId);
+  if (!course) return;
+  
+  document.getElementById("delete-course-target-id").value = course.id;
+  document.getElementById("delete-course-confirm-msg").innerText = 
+    `Are you sure you want to delete the course "${course.code}: ${course.title}"?`;
+    
+  openModal("modal-delete-course-confirm");
+}
+
+function executeDeleteCourse() {
+  const courseId = document.getElementById("delete-course-target-id").value;
+  const idx = db.courses.findIndex(c => c.id === courseId);
+  
+  if (idx > -1) {
+    const deletedCourse = db.courses[idx];
+    
+    // Remove course from db
+    db.courses.splice(idx, 1);
+    
+    // Remove all associated enrollments
+    db.enrollments = db.enrollments.filter(e => e.courseId !== courseId);
+    
+    saveDB();
+    closeModal("modal-delete-course-confirm");
+    showToast(`Course "${deletedCourse.code}" permanently deleted.`, "danger");
+    
+    renderPanelContent("panel-faculty-courses");
+    renderPanelContent("panel-faculty-overview");
+    renderPanelContent("panel-student-overview");
+  }
+}
+
+function triggerStudentViewCourse(courseId) {
+  const course = db.courses.find(c => c.id === courseId);
+  if (!course) return;
+  
+  const faculty = db.users.find(u => u.id === course.facultyId);
+  
+  document.getElementById("stu-modal-course-code").innerText = course.code;
+  document.getElementById("stu-modal-course-title").innerText = course.title;
+  document.getElementById("stu-modal-course-faculty").innerText = faculty ? faculty.name : "Instructor";
+  document.getElementById("stu-modal-course-duration").innerText = course.duration || "N/A";
+  document.getElementById("stu-modal-course-category").innerText = course.category || "General";
+  document.getElementById("stu-modal-course-desc").innerText = course.desc || "No description provided.";
+  document.getElementById("stu-modal-course-resources").innerText = course.resources || "No specific resources listed.";
+  
+  openModal("modal-student-view-course");
 }
 
 // ==========================================
