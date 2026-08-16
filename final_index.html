@@ -309,35 +309,66 @@
         <div class="auth-tabs" id="auth-switcher-tabs">
           <button id="tab-student" class="auth-tab active" onclick="switchLoginRole('student')">
             <i data-lucide="book-open"></i>
-            Student
-          </button>
-          <button id="tab-parent" class="auth-tab" onclick="switchLoginRole('parent')">
-            <i data-lucide="users"></i>
-            Parent
+            Student Sign In
           </button>
           <button id="tab-faculty" class="auth-tab" onclick="switchLoginRole('faculty')">
             <i data-lucide="award"></i>
-            Faculty
+            Faculty Sign In
+          </button>
+          <button id="tab-parent" class="auth-tab" onclick="switchLoginRole('parent')">
+            <i data-lucide="users"></i>
+            Parent Sign In
           </button>
           <button id="tab-signup" class="auth-tab" onclick="switchLoginRole('signup')">
             <i data-lucide="user-plus"></i>
-            Sign Up
+            Student Sign Up
+          </button>
+          <button id="tab-faculty-signup" class="auth-tab" onclick="switchLoginRole('faculty-signup')">
+            <i data-lucide="briefcase"></i>
+            Faculty Sign Up
           </button>
         </div>
 
         <!-- Main Form -->
         <form id="auth-form" onsubmit="handleAuthSubmit(event)">
-          <!-- Dynamic name input (Signup only) -->
+          <!-- Dynamic name input (Signup & Faculty Signup) -->
           <div class="form-group" id="form-group-name" style="display: none;">
-            <label class="form-label" for="auth-name">Full Name</label>
+            <label class="form-label" for="auth-name">Full Name *</label>
             <div class="input-wrapper">
               <i data-lucide="user" class="input-icon"></i>
-              <input type="text" id="auth-name" class="form-input" placeholder="Your Name">
+              <input type="text" id="auth-name" class="form-input" placeholder="Dr. John Doe">
+            </div>
+          </div>
+
+          <!-- Dynamic Faculty ID input (Faculty Signup only) -->
+          <div class="form-group" id="form-group-faculty-id" style="display: none;">
+            <label class="form-label" for="auth-faculty-id">Faculty ID *</label>
+            <div class="input-wrapper">
+              <i data-lucide="badge-check" class="input-icon"></i>
+              <input type="text" id="auth-faculty-id" class="form-input" placeholder="e.g. FAC-101">
+            </div>
+          </div>
+
+          <!-- Dynamic Phone input (Faculty Signup only) -->
+          <div class="form-group" id="form-group-phone" style="display: none;">
+            <label class="form-label" for="auth-phone">Phone Number *</label>
+            <div class="input-wrapper">
+              <i data-lucide="phone" class="input-icon"></i>
+              <input type="text" id="auth-phone" class="form-input" placeholder="+91 9876543210">
+            </div>
+          </div>
+
+          <!-- Dynamic Department input (Faculty Signup only) -->
+          <div class="form-group" id="form-group-department" style="display: none;">
+            <label class="form-label" for="auth-department">Department *</label>
+            <div class="input-wrapper">
+              <i data-lucide="building" class="input-icon"></i>
+              <input type="text" id="auth-department" class="form-input" placeholder="e.g. Computer Science">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="auth-email">Email Address</label>
+            <label class="form-label" for="auth-email">Email Address *</label>
             <div class="input-wrapper">
               <i data-lucide="mail" class="input-icon"></i>
               <input type="email" id="auth-email" class="form-input" placeholder="name@bvrit.ac.in" required>
@@ -345,10 +376,19 @@
           </div>
 
           <div class="form-group" id="form-group-password">
-            <label class="form-label" for="auth-password">Password</label>
+            <label class="form-label" for="auth-password">Password *</label>
             <div class="input-wrapper">
               <i data-lucide="lock" class="input-icon"></i>
               <input type="password" id="auth-password" class="form-input" placeholder="••••••••">
+            </div>
+          </div>
+
+          <!-- Dynamic Confirm Password input (Signup & Faculty Signup) -->
+          <div class="form-group" id="form-group-confirm-password" style="display: none;">
+            <label class="form-label" for="auth-confirm-password">Confirm Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="shield-check" class="input-icon"></i>
+              <input type="password" id="auth-confirm-password" class="form-input" placeholder="Re-enter password">
             </div>
           </div>
 
@@ -365,7 +405,8 @@
         </div>
 
         <!-- Demo Account Autofills -->
-        <div class="demo-box" id="demo-autofills-container">
+        <!-- DEVELOPER ONLY: Quick Test Credentials (hidden from UI, do not delete) -->
+        <div class="demo-box" id="demo-autofills-container" style="display: none;">
           <div class="demo-title">
             <i data-lucide="key-round"></i>
             <span>Quick Test Credentials</span>
@@ -835,6 +876,23 @@
       <div id="panel-faculty-overview" class="dashboard-panel">
         <h2 style="margin-bottom: 20px; font-weight: 700; font-size: 18px; color: var(--text-primary);">Assigned Classrooms</h2>
         <div id="grid-faculty-courses" class="courses-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Faculty Course Management Panel -->
+      <div id="panel-faculty-courses" class="dashboard-panel">
+        <div class="flex-space" style="margin-bottom: 20px;">
+          <div>
+            <h2 style="font-weight: 700; font-size: 18px; color: var(--text-primary);">Course Management Catalog</h2>
+            <p style="font-size: 13px; color: var(--text-secondary);">Create, update, and manage your academic course offerings.</p>
+          </div>
+          <button class="btn btn-primary" onclick="triggerAddCourseModal()">
+            <i data-lucide="plus"></i>
+            <span>Create New Course</span>
+          </button>
+        </div>
+        <div id="grid-faculty-manage-courses" class="courses-grid">
           <!-- Dynamically populated -->
         </div>
       </div>
@@ -1374,6 +1432,125 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Course Modal -->
+  <div id="modal-course-form" class="modal-overlay">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="modal-course-form-title" style="font-weight: 700;">Create New Course</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-course-form')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form onsubmit="handleSaveCourse(event)">
+        <input type="hidden" id="course-edit-id">
+        
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="form-label" for="course-title-input">Course Name *</label>
+            <input type="text" id="course-title-input" class="form-input" style="padding-left:14px;" placeholder="e.g. Advanced Machine Learning" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="course-code-input">Course Code *</label>
+            <input type="text" id="course-code-input" class="form-input" style="padding-left:14px;" placeholder="e.g. CS-404" required>
+          </div>
+        </div>
+
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="form-label" for="course-duration-input">Course Duration *</label>
+            <input type="text" id="course-duration-input" class="form-input" style="padding-left:14px;" placeholder="e.g. 8 Weeks or 1 Semester" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="course-category-input">Course Category *</label>
+            <input type="text" id="course-category-input" class="form-input" style="padding-left:14px;" placeholder="e.g. Computer Science" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="course-desc-input">Course Description *</label>
+          <textarea id="course-desc-input" class="form-input" style="padding-left:14px; min-height: 80px;" placeholder="Describe course objectives, syllabus overview, and learning outcomes..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="course-resources-input">Course Materials & Resources *</label>
+          <textarea id="course-resources-input" class="form-input" style="padding-left:14px; min-height: 80px;" placeholder="List reference books, lecture PDFs, dataset links, or online materials..." required></textarea>
+        </div>
+
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-course-form')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check"></i>
+            <span id="btn-save-course-label">Save Course</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Course Confirmation Modal -->
+  <div id="modal-delete-course-confirm" class="modal-overlay">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 style="font-weight: 700; color: #ef4444; display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="alert-triangle"></i>
+          <span>Confirm Course Deletion</span>
+        </h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-delete-course-confirm')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <input type="hidden" id="delete-course-target-id">
+      <div style="padding: 10px 0 20px;">
+        <p style="font-size: 14px; color: var(--text-primary); line-height: 1.6;" id="delete-course-confirm-msg">
+          Are you sure you want to delete this course?
+        </p>
+        <p style="font-size: 12px; color: #ef4444; font-weight: 600; margin-top: 10px;">
+          ⚠️ Warning: This will permanently remove the course and its materials from student course lists.
+        </p>
+      </div>
+      <div style="text-align: right; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-delete-course-confirm')">Cancel</button>
+        <button type="button" class="btn" style="background: #ef4444; color: white;" onclick="executeDeleteCourse()">
+          <i data-lucide="trash-2"></i>
+          <span>Delete Course</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student View Course Details Modal -->
+  <div id="modal-student-view-course" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-info" id="stu-modal-course-code">CODE</span>
+          <h3 id="stu-modal-course-title" style="font-weight: 700; font-size: 20px; margin-top: 4px;">Course Title</h3>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modal-student-view-course')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 10px 0;">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="user"></i> Faculty: <strong id="stu-modal-course-faculty" style="color: var(--text-primary);">Instructor</strong></span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="clock"></i> Duration: <strong id="stu-modal-course-duration" style="color: var(--text-primary);">8 Weeks</strong></span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="tag"></i> Category: <strong id="stu-modal-course-category" style="color: var(--text-primary);">General</strong></span>
+        </div>
+        <div style="background: var(--bg-darkest); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 6px;">Course Overview & Description</h4>
+          <p id="stu-modal-course-desc" style="font-size: 13.5px; color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></p>
+        </div>
+        <div style="background: var(--bg-darkest); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">Learning Materials & Resources</h4>
+          <p id="stu-modal-course-resources" style="font-size: 13.5px; color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></p>
+        </div>
+      </div>
+      <div style="text-align: right; border-top: 1px solid var(--border); padding-top: 15px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-student-view-course')">Close View</button>
+      </div>
     </div>
   </div>
 
