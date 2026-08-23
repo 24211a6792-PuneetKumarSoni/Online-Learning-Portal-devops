@@ -55,7 +55,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Error Handling Middleware
-const errorHandler = require('./middleware/errorHandler');
+const errorHandler = require('./middleware/errorhandler');
 app.use(errorHandler);
 
 module.exports = app;
