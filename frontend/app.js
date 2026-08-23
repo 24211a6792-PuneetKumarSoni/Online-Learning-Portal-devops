@@ -95,7 +95,7 @@ async function syncLiveDB() {
             read: n.read
           }));
         }
-      } catch (e) {}
+      } catch (e) { }
 
       // 3. Role-specific Syncing
       if (currentUser.role === "student") {
@@ -196,47 +196,47 @@ async function syncLiveDB() {
               childId: u.childId
             }));
           }
-        } catch (e) {}
+        } catch (e) { }
 
         try {
           const facSyncRes = await apiFetch("/faculty/sync");
           if (facSyncRes && facSyncRes.success) {
-            db.courses = facSyncRes.courses.map(c => ({ id: c._id||c.id, code: c.code, title: c.title, desc: c.desc, duration: c.duration, category: c.category, resources: c.resources, facultyId: c.facultyId ? (c.facultyId._id||c.facultyId) : null }));
-            db.enrollments = facSyncRes.enrollments.map(e => ({ id: e._id||e.id, studentId: e.studentId, courseId: e.courseId }));
-            db.assignments = facSyncRes.assignments.map(a => ({ id: a._id||a.id, courseId: a.courseId, title: a.title, desc: a.desc, due: a.due }));
-            db.submissions = facSyncRes.submissions.map(s => ({ id: s._id||s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
-            db.quizzes = facSyncRes.quizzes.map(q => ({ id: q._id||q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
-            db.quizAttempts = facSyncRes.quizAttempts.map(q => ({ id: q._id||q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
-            db.attendance = facSyncRes.attendance.map(a => ({ id: a._id||a.id, studentId: a.studentId, courseId: a.courseId, date: a.date, status: a.status }));
-            db.announcements = facSyncRes.announcements.map(a => ({ id: a._id||a.id, courseId: a.courseId, text: a.text, date: a.date }));
-            db.materials = facSyncRes.materials.map(m => ({ id: m._id||m.id, courseId: m.courseId, title: m.title, type: m.type, link: m.link }));
-            db.videos = facSyncRes.videos.map(v => ({ id: v._id||v.id, courseId: v.courseId, title: v.title, link: v.link }));
+            db.courses = facSyncRes.courses.map(c => ({ id: c._id || c.id, code: c.code, title: c.title, desc: c.desc, duration: c.duration, category: c.category, resources: c.resources, facultyId: c.facultyId ? (c.facultyId._id || c.facultyId) : null }));
+            db.enrollments = facSyncRes.enrollments.map(e => ({ id: e._id || e.id, studentId: e.studentId, courseId: e.courseId }));
+            db.assignments = facSyncRes.assignments.map(a => ({ id: a._id || a.id, courseId: a.courseId, title: a.title, desc: a.desc, due: a.due }));
+            db.submissions = facSyncRes.submissions.map(s => ({ id: s._id || s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
+            db.quizzes = facSyncRes.quizzes.map(q => ({ id: q._id || q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
+            db.quizAttempts = facSyncRes.quizAttempts.map(q => ({ id: q._id || q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
+            db.attendance = facSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: a.studentId, courseId: a.courseId, date: a.date, status: a.status }));
+            db.announcements = facSyncRes.announcements.map(a => ({ id: a._id || a.id, courseId: a.courseId, text: a.text, date: a.date }));
+            db.materials = facSyncRes.materials.map(m => ({ id: m._id || m.id, courseId: m.courseId, title: m.title, type: m.type, link: m.link }));
+            db.videos = facSyncRes.videos.map(v => ({ id: v._id || v.id, courseId: v.courseId, title: v.title, link: v.link }));
           }
-        } catch (e) {}
+        } catch (e) { }
       } else if (currentUser.role === "parent") {
         try {
           const dashRes = await apiFetch("/parent/dashboard");
           if (dashRes && dashRes.success) {
             db.parentDashboardData = dashRes.data;
           }
-        } catch (e) {}
+        } catch (e) { }
 
         try {
           const parSyncRes = await apiFetch("/parent/sync");
           if (parSyncRes && parSyncRes.success) {
-            db.courses = parSyncRes.courses.map(c => ({ id: c._id||c.id, code: c.code, title: c.title, desc: c.desc, duration: c.duration, category: c.category, resources: c.resources, facultyId: c.facultyId ? (c.facultyId._id||c.facultyId) : null }));
-            db.enrollments = parSyncRes.enrollments.map(e => ({ id: e._id||e.id, studentId: e.studentId, courseId: e.courseId }));
-            db.assignments = parSyncRes.assignments.map(a => ({ id: a._id||a.id, courseId: a.courseId, title: a.title, desc: a.desc, due: a.due }));
-            db.submissions = parSyncRes.submissions.map(s => ({ id: s._id||s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
-            db.quizzes = parSyncRes.quizzes.map(q => ({ id: q._id||q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
-            db.quizAttempts = parSyncRes.quizAttempts.map(q => ({ id: q._id||q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
-            db.attendance = parSyncRes.attendance.map(a => ({ id: a._id||a.id, studentId: "usr_student", courseId: a.courseId, date: a.date, status: a.status })); // 'usr_student' matches Parent frontend logic
-            db.announcements = parSyncRes.announcements.map(a => ({ id: a._id||a.id, courseId: a.courseId, text: a.text, date: a.date }));
-            db.fees = parSyncRes.fees.map(f => ({ id: f._id||f.id, parentId: f.parentId, childId: f.childId, title: f.title, due: f.due, amount: f.amount, status: f.status, receipt: f.receipt }));
-            db.messages = parSyncRes.messages.map(m => ({ id: m._id||m.id, parentId: m.parentId, facultyId: m.facultyId, text: m.text, date: m.date }));
-            db.academicRecords = (parSyncRes.academicRecords || []).map(r => ({ id: r._id||r.id, studentId: r.studentId, semester: r.semester, sgpa: r.sgpa, cleared: r.cleared }));
+            db.courses = parSyncRes.courses.map(c => ({ id: c._id || c.id, code: c.code, title: c.title, desc: c.desc, duration: c.duration, category: c.category, resources: c.resources, facultyId: c.facultyId ? (c.facultyId._id || c.facultyId) : null }));
+            db.enrollments = parSyncRes.enrollments.map(e => ({ id: e._id || e.id, studentId: e.studentId, courseId: e.courseId }));
+            db.assignments = parSyncRes.assignments.map(a => ({ id: a._id || a.id, courseId: a.courseId, title: a.title, desc: a.desc, due: a.due }));
+            db.submissions = parSyncRes.submissions.map(s => ({ id: s._id || s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
+            db.quizzes = parSyncRes.quizzes.map(q => ({ id: q._id || q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
+            db.quizAttempts = parSyncRes.quizAttempts.map(q => ({ id: q._id || q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
+            db.attendance = parSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: "usr_student", courseId: a.courseId, date: a.date, status: a.status })); // 'usr_student' matches Parent frontend logic
+            db.announcements = parSyncRes.announcements.map(a => ({ id: a._id || a.id, courseId: a.courseId, text: a.text, date: a.date }));
+            db.fees = parSyncRes.fees.map(f => ({ id: f._id || f.id, parentId: f.parentId, childId: f.childId, title: f.title, due: f.due, amount: f.amount, status: f.status, receipt: f.receipt }));
+            db.messages = parSyncRes.messages.map(m => ({ id: m._id || m.id, parentId: m.parentId, facultyId: m.facultyId, text: m.text, date: m.date }));
+            db.academicRecords = (parSyncRes.academicRecords || []).map(r => ({ id: r._id || r.id, studentId: r.studentId, semester: r.semester, sgpa: r.sgpa, cleared: r.cleared }));
           }
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   } catch (err) {
@@ -997,7 +997,7 @@ function renderStudentHome() {
   const upcomingList = document.getElementById("stu-home-upcoming-list");
   if (upcomingList) {
     upcomingList.innerHTML = "";
-    
+
     // Combine pending assignments & pending quizzes
     const activities = [];
 
@@ -1062,10 +1062,10 @@ function renderStudentHome() {
             </div>
           </div>
           <div>
-            ${act.type === "assignment" ? 
-              `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerSubmitAssignmentModal('${act.id}', '${act.courseId}')">Submit &rarr;</button>` :
-              `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerTakeQuizModal('${act.id}')">Start Test &rarr;</button>`
-            }
+            ${act.type === "assignment" ?
+            `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerSubmitAssignmentModal('${act.id}', '${act.courseId}')">Submit &rarr;</button>` :
+            `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerTakeQuizModal('${act.id}')">Start Test &rarr;</button>`
+          }
           </div>
         `;
         upcomingList.appendChild(div);
@@ -1137,10 +1137,10 @@ function renderStudentHome() {
             </div>
           </div>
           <div>
-            ${attempt ? 
-              `<span class="badge badge-success" style="font-size: 11px; padding: 4px 8px;">Score: ${attempt.score}%</span>` : 
-              `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerTakeQuizModal('${q.id}')">Start &rarr;</button>`
-            }
+            ${attempt ?
+            `<span class="badge badge-success" style="font-size: 11px; padding: 4px 8px;">Score: ${attempt.score}%</span>` :
+            `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 11px;" onclick="triggerTakeQuizModal('${q.id}')">Start &rarr;</button>`
+          }
           </div>
         `;
         qzList.appendChild(div);
@@ -1364,22 +1364,22 @@ function renderParentHome() {
   if (!dashData || !dashData.child) {
     const nameEl = document.getElementById("par-home-name");
     if (nameEl) nameEl.innerText = "Parent";
-    
+
     const childFullname = document.getElementById("par-home-child-fullname");
     if (childFullname) childFullname.innerText = "No student linked";
-    
+
     const childMeta = document.getElementById("par-home-child-meta");
     if (childMeta) childMeta.innerText = "Please contact administration to link a student profile.";
-    
+
     const statAtt = document.getElementById("par-stat-att");
     if (statAtt) statAtt.innerText = "N/A";
-    
+
     const statCGPA = document.getElementById("par-stat-cgpa");
     if (statCGPA) statCGPA.innerText = "N/A";
-    
+
     const statCourses = document.getElementById("par-stat-courses");
     if (statCourses) statCourses.innerText = "0";
-    
+
     const statFeeDue = document.getElementById("par-stat-fee-due");
     if (statFeeDue) statFeeDue.innerText = "N/A";
 
@@ -1388,7 +1388,7 @@ function renderParentHome() {
 
     const activityList = document.getElementById("par-recent-activity-list");
     if (activityList) activityList.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-secondary); font-size: 12px;">No recent activity.</div>`;
-    
+
     return;
   }
 
@@ -1454,10 +1454,10 @@ function renderParentHome() {
       recentActivity.forEach(act => {
         const div = document.createElement("div");
         div.className = "activity-item";
-        
+
         let iconHtml = "";
         let badgeHtml = "";
-        
+
         if (act.type === "submission") {
           iconHtml = `<div class="activity-icon-badge" style="background: rgba(34,197,94,0.1); color: var(--success);"><i data-lucide="check-circle" style="width: 18px; height: 18px;"></i></div>`;
           badgeHtml = `<span class="badge badge-success" style="font-size: 9px;">Assignment</span>`;
@@ -2905,15 +2905,15 @@ function renderAcademicRecordsGrid(gridId, titleId, badgeId, academicRecords, cg
   const grid = document.getElementById(gridId);
   const title = document.getElementById(titleId);
   const badge = document.getElementById(badgeId);
-  
+
   if (!grid) return;
   grid.innerHTML = '';
-  
+
   if (!academicRecords || academicRecords.length === 0) {
     grid.innerHTML = '<div style="grid-column: 1 / -1; color: var(--text-secondary); padding: 10px;">No academic records available.</div>';
     return;
   }
-  
+
   if (title && cgpa) {
     title.innerText = `Semester-Wise Academic History (Cumulative CGPA: ${cgpa})`;
   }
