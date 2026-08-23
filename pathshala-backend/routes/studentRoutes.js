@@ -1,7 +1,7 @@
 const express = require('express');
 const { protect, authorize } = require('../middleware/auth');
-const Course = require('../models/Course');
-const User = require('../models/User');
+const Course = require('../models/course');
+const User = require('../models/user');
 const {
   Enrollment,
   Assignment,
@@ -14,7 +14,7 @@ const {
   Announcement,
   Notification,
   Fee
-} = require('../models/Schemas');
+} = require('../models/schemas');
 
 const router = express.Router();
 
@@ -315,7 +315,7 @@ router.get('/announcements', async (req, res, next) => {
 router.get('/sync', async (req, res, next) => {
   try {
     const studentId = req.user.id;
-    const studentUser = await require('../models/User').findById(studentId);
+    const studentUser = await require('../models/user').findById(studentId);
 
     const enrollments = await Enrollment.find({ studentId }).populate({
       path: 'courseId',
@@ -334,7 +334,7 @@ router.get('/sync', async (req, res, next) => {
     const announcements = await Announcement.find({ courseId: { $in: courseIds } }).populate('courseId', 'code title');
     const notifications = await Notification.find({ userId: studentId });
     const fees = await Fee.find({ studentId });
-    const academicRecords = await require('../models/Schemas').AcademicRecord.find({ studentId });
+    const academicRecords = await require('../models/schemas').AcademicRecord.find({ studentId });
 
     res.json({
       success: true,

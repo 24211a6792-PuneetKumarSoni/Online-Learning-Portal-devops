@@ -1,7 +1,7 @@
 const express = require('express');
 const { protect, authorize } = require('../middleware/auth');
-const Course = require('../models/Course');
-const User = require('../models/User');
+const Course = require('../models/course');
+const User = require('../models/user');
 const {
   Enrollment,
   Assignment,
@@ -13,7 +13,7 @@ const {
   Fee,
   Message,
   Notification
-} = require('../models/Schemas');
+} = require('../models/schemas');
 
 const router = express.Router();
 
@@ -407,7 +407,7 @@ router.get('/sync', async (req, res, next) => {
     const messages = await Message.find({ studentId: childId }).sort({ date: -1 });
     const notifications = await Notification.find({ userId: req.user.id });
     
-    const academicRecords = await require('../models/Schemas').AcademicRecord.find({ studentId: childId });
+    const academicRecords = await require('../models/schemas').AcademicRecord.find({ studentId: childId });
 
     res.json({
       success: true,

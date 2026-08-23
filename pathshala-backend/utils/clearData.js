@@ -1,7 +1,7 @@
 require('dotenv').config();
 const connectDB = require('../config/db');
-const User = require('../models/User');
-const Course = require('../models/Course');
+const User = require('../models/user');
+const Course = require('../models/course');
 const {
   Enrollment,
   Announcement,
@@ -15,7 +15,7 @@ const {
   Material,
   Video,
   Notification
-} = require('../models/Schemas');
+} = require('../models/schemas');
 
 const clearAllData = async () => {
   try {

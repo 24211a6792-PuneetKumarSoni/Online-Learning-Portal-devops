@@ -1,6 +1,6 @@
 const express = require('express');
 const { protect, authorize } = require('../middleware/auth');
-const Course = require('../models/Course');
+const Course = require('../models/course');
 const {
   Enrollment,
   Assignment,
@@ -11,7 +11,7 @@ const {
   Material,
   Video,
   Notification
-} = require('../models/Schemas');
+} = require('../models/schemas');
 
 const router = express.Router();
 
