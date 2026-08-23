@@ -102,6 +102,14 @@ const NotificationSchema = new mongoose.Schema({
   read: { type: Boolean, default: false }
 }, { timestamps: true });
 
+// AcademicRecord
+const AcademicRecordSchema = new mongoose.Schema({
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  semester: { type: String, required: true },
+  sgpa: { type: Number, required: true },
+  cleared: { type: Boolean, default: true }
+}, { timestamps: true });
+
 module.exports = {
   Enrollment: mongoose.model('Enrollment', EnrollmentSchema),
   Announcement: mongoose.model('Announcement', AnnouncementSchema),
@@ -114,5 +122,6 @@ module.exports = {
   Message: mongoose.model('Message', MessageSchema),
   Material: mongoose.model('Material', MaterialSchema),
   Video: mongoose.model('Video', VideoSchema),
-  Notification: mongoose.model('Notification', NotificationSchema)
+  Notification: mongoose.model('Notification', NotificationSchema),
+  AcademicRecord: mongoose.model('AcademicRecord', AcademicRecordSchema)
 };

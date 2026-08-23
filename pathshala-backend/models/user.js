@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Email is required'],
     unique: true,
     lowercase: true,
-    match: [/^\w+([\.-]?\w+)*@bvrit\.ac\.in$/, 'Email must belong to @bvrit.ac.in domain']
+    trim: true,
+    match: [/^[a-zA-Z0-9_.+-]+@bvrit\.ac\.in$/i, 'Email must belong to @bvrit.ac.in domain']
   },
   password: { type: String, required: [true, 'Password is required'], minlength: 6 },
   role: {
@@ -16,18 +17,24 @@ const UserSchema = new mongoose.Schema({
     enum: ['student', 'parent', 'faculty', 'admin'],
     default: 'student'
   },
+  studentId: { type: String, trim: true, default: null },
+  facultyId: { type: String, trim: true, default: null },
+  department: { type: String, trim: true, default: null },
+  semester: { type: String, trim: true, default: null },
+  cgpa: { type: Number, default: null },
+  phone: { type: String, trim: true, default: null },
+  mobileNumber: { type: String, trim: true, default: null },
+  childRoll: { type: String, trim: true, default: null },
   childId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 
 // Corrected Async Hook (removed 'next' parameter)
 UserSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  // Plaintext password storage (no hashing)
 });
 
 UserSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+  return candidatePassword === this.password;
 };
 
 module.exports = mongoose.model('User', UserSchema);

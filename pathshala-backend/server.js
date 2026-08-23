@@ -2,14 +2,13 @@ require('dotenv').config();
 
 const app = require('./app');
 const connectDB = require('./config/db');
-const seedInitialData = require('./utils/seedData');
 
 const PORT = process.env.PORT || 5000;
 
 // Database Connection
 connectDB()
     .then(() => {
-        seedInitialData();
+        console.log('Database connected successfully. No mock data seeded.');
     })
     .catch((err) => {
         console.error('Database connection failed:', err);

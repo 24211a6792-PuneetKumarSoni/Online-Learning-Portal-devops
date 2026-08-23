@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: pathshala-backend
+    env: node
+    plan: free
+    region: oregon # You can change this to your preferred region (e.g., frankfurt, ohio, singapore)
+    rootDir: pathshala-backend
+    buildCommand: npm install --production
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # You must set this manually in the Render Dashboard
+      - key: JWT_SECRET
+        sync: false # You must set this manually in the Render Dashboard
+      - key: ALLOWED_ORIGIN
+        value: "*" # Or set this to your Netlify URL once deployed
