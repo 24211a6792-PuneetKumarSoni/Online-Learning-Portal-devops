@@ -1,0 +1,21 @@
+
+services:
+  backend:
+    build:
+      context: ./pathshala-backend
+    container_name: pathshala-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./pathshala-backend/.env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pathshala-frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pathshala</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <meta name="description" content="Pathshala - Institutional Learning & Academic Management Portal">
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- 1. PUBLIC LANDING HOMEPAGE VIEW -->
+  <div id="view-home">
+    <nav class="home-nav">
+      <a href="#" class="home-logo" onclick="showHomeView()"
+        style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+        <img src="favicon.svg" alt="Pathshala Logo"
+          style="width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 2px 10px rgba(37,99,235,0.3);">
+        <span>Pathshala</span>
+      </a>
+      <ul class="home-nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div>
+        <button class="btn btn-primary" onclick="showAuthView('student')">
+          <i data-lucide="log-in"></i>
+          <span>Portal Sign In</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>Welcome to <span>Pathshala</span></h1>
+        <p>A next-generation online learning ecosystem. Empowering students, supporting parents, and equipping faculty
+          with intuitive digital classrooms, instant evaluations, and holistic academic progress tracking.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showAuthView('student')">Get Started Now</button>
+          <a href="#courses" class="btn btn-secondary">Explore Curricula</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="hero-graphic">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="home-section">
+      <div class="section-header">
+        <h2>About the Platform</h2>
+        <p>Pathshala bridges the gap between classrooms and homes, establishing a seamless digital network for holistic
+          development and clear communication.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+        <div>
+          <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--primary);">Bridging Learning &
+            Monitoring</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 15px;">We believe education thrives
+            when teachers, students, and parents collaborate in harmony. Pathshala provides a unified space where
+            learning materials are shared instantly, grading is transparent, and student achievements are tracked in
+            real-time.</p>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Our robust design supports detailed study guides,
+            video lecture repositories, online quizzes, fee receipt records, and automated notifications so that nothing
+            goes unnoticed.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div
+            style="background: var(--bg-darkest); padding: 25px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border);">
+            <div style="font-size: 32px; font-weight: 800; color: var(--primary);">99%</div>
+            <div style="font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 5px;">Parent
+              Satisfaction</div>
+          </div>
+          <div
+            style="background: var(--bg-darkest); padding: 25px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border);">
+            <div style="font-size: 32px; font-weight: 800; color: var(--secondary);">15k+</div>
+            <div style="font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 5px;">Enrolled
+              Students</div>
+          </div>
+          <div
+            style="background: var(--bg-darkest); padding: 25px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border);">
+            <div style="font-size: 32px; font-weight: 800; color: var(--success);">50+</div>
+            <div style="font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 5px;">Active
+              Instructors</div>
+          </div>
+          <div
+            style="background: var(--bg-darkest); padding: 25px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border);">
+            <div style="font-size: 32px; font-weight: 800; color: var(--text-primary);">100%</div>
+            <div style="font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 5px;">Digital
+              Attendance</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="home-section alt-bg">
+      <div class="section-header">
+        <h2>Features & Ecosystem</h2>
+        <p>Unlock structured classrooms tailored to each core role in the academic journey.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-container"><i data-lucide="book-open"></i></div>
+          <h3>Student Hub</h3>
+          <p>Read notes, watch video lessons, take tests, track check-ins, and upload assignments.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-container"><i data-lucide="users"></i></div>
+          <h3>Parent Oversight</h3>
+          <p>Monitor child grades, view attendance history, read messaging boards, and verify fee receipts.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-container"><i data-lucide="award"></i></div>
+          <h3>Faculty Desk</h3>
+          <p>Create quizzes, upload course materials, evaluate homework, and update notices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Courses -->
+    <section id="courses" class="home-section">
+      <div class="section-header">
+        <h2>Popular Curricula</h2>
+        <p>Browse some of our highly rated programs hosted on the portal.</p>
+      </div>
+      <div class="home-courses-grid">
+        <div class="home-course-card">
+          <div class="home-course-banner">
+            <i data-lucide="cpu"></i>
+            <span class="home-course-tag">Computer Science</span>
+          </div>
+          <div class="home-course-body">
+            <h3 class="home-course-title">Intro to Neural Networks</h3>
+            <p class="home-course-desc">A deep dive into artificial neural architecture, layer optimization, and
+              training logic.</p>
+            <div class="home-course-rating">
+              <i data-lucide="star"></i>
+              <span>4.9 (120 reviews)</span>
+            </div>
+            <div class="home-course-meta">
+              <span><i data-lucide="clock"></i> 8 Weeks</span>
+              <span><i data-lucide="users"></i> 320 Enrolled</span>
+            </div>
+          </div>
+        </div>
+        <div class="home-course-card">
+          <div class="home-course-banner">
+            <i data-lucide="globe"></i>
+            <span class="home-course-tag">Physics</span>
+          </div>
+          <div class="home-course-body">
+            <h3 class="home-course-title">Cosmological Physics</h3>
+            <p class="home-course-desc">Understand general relativity, astrophysical models, stellar mechanics, and
+              black hole radii.</p>
+            <div class="home-course-rating">
+              <i data-lucide="star"></i>
+              <span>4.8 (85 reviews)</span>
+            </div>
+            <div class="home-course-meta">
+              <span><i data-lucide="clock"></i> 10 Weeks</span>
+              <span><i data-lucide="users"></i> 190 Enrolled</span>
+            </div>
+          </div>
+        </div>
+        <div class="home-course-card">
+          <div class="home-course-banner">
+            <i data-lucide="database"></i>
+            <span class="home-course-tag">Software Eng</span>
+          </div>
+          <div class="home-course-body">
+            <h3 class="home-course-title">Database Systems & SQL</h3>
+            <p class="home-course-desc">Master relational database designs, transaction control logs, indexing, and
+              advanced query scripting.</p>
+            <div class="home-course-rating">
+              <i data-lucide="star"></i>
+              <span>4.7 (140 reviews)</span>
+            </div>
+            <div class="home-course-meta">
+              <span><i data-lucide="clock"></i> 6 Weeks</span>
+              <span><i data-lucide="users"></i> 410 Enrolled</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="home-section alt-bg">
+      <div class="section-header">
+        <h2>What Our Community Says</h2>
+        <p>Feedback from students, parents, and instructors utilizing Pathshala daily.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"The interactive quizzes and structured notes helped me score a 95% average in my
+            neural networks course. Pathshala makes studying incredibly efficient."</p>
+          <div class="testimonial-profile">
+            <div class="testimonial-avatar">AM</div>
+            <div class="testimonial-info">
+              <h4>Alexander Mercer</h4>
+              <span>CS Student</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"Being able to review grades, check attendance calendar logs, and settle school
+            fee status items from a single dashboard gives me complete peace of mind."</p>
+          <div class="testimonial-profile">
+            <div class="testimonial-avatar">DM</div>
+            <div class="testimonial-info">
+              <h4>David Mercer</h4>
+              <span>Parent of Alexander</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"Pathshala streamlines grading submissions, uploading notes, and organizing
+            quizzes. It saves hours of manual administrative burden."</p>
+          <div class="testimonial-profile">
+            <div class="testimonial-avatar">AS</div>
+            <div class="testimonial-info">
+              <h4>Dr. Alistair Smith</h4>
+              <span>Faculty Member</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="home-section">
+      <div class="contact-container">
+        <div class="contact-info-column">
+          <h3>Get In Touch</h3>
+          <p>Have questions about portal setups, enrollment keys, or general inquiries? Fill out the contact form and
+            our support desk will respond shortly.</p>
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon"><i data-lucide="mail"></i></div>
+              <div class="contact-detail-text">
+                <h5>Support Email</h5>
+                <p>support@bvrit.ac.in</p>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon"><i data-lucide="phone"></i></div>
+              <div class="contact-detail-text">
+                <h5>Helpdesk Helpline</h5>
+                <p>+91 (040) 2345-6789</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form-column" onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="contact-name" class="form-input" style="padding-left:14px;" placeholder="Your Name"
+              required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="contact-email" class="form-input" style="padding-left:14px;"
+              placeholder="name@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea id="contact-msg" class="form-input"
+              style="padding-left:14px; min-height: 100px; resize: vertical;" placeholder="Type your message here..."
+              required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="send"></i>
+            <span>Send Message</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Pathshala</h3>
+          <p>Connecting institutions, faculty, students, and parents under a robust digital academic ecosystem.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Portal Entries</h4>
+          <ul>
+            <li><a href="#" onclick="showAuthView('student')">Student Portal</a></li>
+            <li><a href="#" onclick="showAuthView('parent')">Parent Portal</a></li>
+            <li><a href="#" onclick="showAuthView('faculty')">Faculty Portal</a></li>
+            <li><a href="#" onclick="showAuthView('admin')">Admin Controls</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Institutional Links</h4>
+          <ul>
+            <li><a href="https://bvrit.ac.in" target="_blank">BVRIT Official Website</a></li>
+            <li><a href="#about">About Pathshala</a></li>
+            <li><a href="#features">Ecosystem Features</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pathshala | BVRIT Online Education Portal. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- 2. AUTHENTICATION VIEW -->
+  <div id="view-auth" style="display: none;">
+    <div class="auth-wrapper">
+
+      <!-- A. SIGN IN CARD -->
+      <div class="auth-container" id="auth-signin-card">
+        <!-- Auth Header -->
+        <div class="auth-header">
+          <div class="auth-logo" id="auth-logo-badge" style="background: transparent; box-shadow: none;">
+            <img src="favicon.svg" alt="Pathshala Logo"
+              style="width: 52px; height: 52px; border-radius: 14px; box-shadow: 0 4px 14px rgba(37,99,235,0.3);">
+          </div>
+          <h1 class="auth-title" id="auth-main-title">Pathshala Sign In</h1>
+          <p class="auth-subtitle" id="auth-main-subtitle">Access your personal dashboard</p>
+        </div>
+
+        <!-- 3 Login Type Switcher Tabs -->
+        <div class="auth-tabs" id="auth-switcher-tabs">
+          <button id="tab-student" class="auth-tab active" onclick="switchLoginRole('student')">
+            <i data-lucide="book-open"></i>
+            <span>Student Sign In</span>
+          </button>
+          <button id="tab-faculty" class="auth-tab" onclick="switchLoginRole('faculty')">
+            <i data-lucide="award"></i>
+            <span>Faculty Sign In</span>
+          </button>
+          <button id="tab-parent" class="auth-tab" onclick="switchLoginRole('parent')">
+            <i data-lucide="users"></i>
+            <span>Parent Sign In</span>
+          </button>
+        </div>
+
+        <!-- Main Sign In Form -->
+        <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+          <!-- Student & Faculty Email Field -->
+          <div class="form-group" id="form-group-email">
+            <label class="form-label" for="auth-email">Email Address *</label>
+            <div class="input-wrapper">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="email" id="auth-email" class="form-input" placeholder="name@bvrit.ac.in" required>
+            </div>
+          </div>
+
+          <!-- Student & Faculty Password Field -->
+          <div class="form-group" id="form-group-password">
+            <label class="form-label" for="auth-password">Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="auth-password" class="form-input" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <!-- Parent Only: Student Roll Number Field -->
+          <div class="form-group" id="form-group-parent-roll" style="display: none;">
+            <label class="form-label" for="auth-parent-roll">Student Roll Number *</label>
+            <div class="input-wrapper">
+              <i data-lucide="badge-check" class="input-icon"></i>
+              <input type="text" id="auth-parent-roll" class="form-input" placeholder="Enter student's roll number">
+            </div>
+          </div>
+
+          <!-- Parent Only: Mobile Number Field -->
+          <div class="form-group" id="form-group-parent-phone" style="display: none;">
+            <label class="form-label" for="auth-parent-phone">Mobile Number *</label>
+            <div class="input-wrapper">
+              <i data-lucide="phone" class="input-icon"></i>
+              <input type="tel" id="auth-parent-phone" class="form-input" placeholder="Enter registered mobile number">
+            </div>
+          </div>
+
+          <!-- Forgot Password New Password input -->
+          <div class="form-group" id="form-group-forgot-password" style="display: none;">
+            <label class="form-label" for="forgot-new-password">New Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="key" class="input-icon"></i>
+              <input type="password" id="forgot-new-password" class="form-input"
+                placeholder="Enter new password (min 6 chars)">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="btn-auth-submit">
+            <span>Sign In as Student</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- Auth Footer Links -->
+        <div class="auth-footer-links" id="auth-footer-options">
+          <a href="#" class="auth-link" id="link-forgot-pwd" onclick="toggleForgotPasswordView(true)">Forgot
+            Password?</a>
+          <a href="#" class="auth-link" onclick="showHomeView()"><i data-lucide="arrow-left"
+              style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:3px;"></i>Back
+            to Homepage</a>
+        </div>
+
+        <!-- Sign Up Link on Right Side -->
+        <div class="auth-signup-prompt" id="auth-signup-prompt-box"
+          style="display: flex; justify-content: flex-end; align-items: center; gap: 6px; margin-top: 15px; padding-top: 14px; border-top: 1px dashed var(--border);">
+          <span style="color: var(--text-secondary); font-size: 13px;">Don't have an account?</span>
+          <a href="#" class="auth-link" style="font-weight: 700; color: var(--primary); font-size: 13.5px;"
+            onclick="showSignupView('student')">Sign Up &rarr;</a>
+        </div>
+
+      </div>
+
+      <!-- B. DEDICATED SIGN UP CARD (Student & Faculty Only) -->
+      <div class="auth-container" id="auth-signup-card" style="display: none;">
+        <!-- Auth Header -->
+        <div class="auth-header">
+          <div class="auth-logo" style="background: transparent; box-shadow: none;">
+            <img src="favicon.svg" alt="Pathshala Logo"
+              style="width: 52px; height: 52px; border-radius: 14px; box-shadow: 0 4px 14px rgba(37,99,235,0.3);">
+          </div>
+          <h1 class="auth-title">Create your Pathshala Account</h1>
+          <p class="auth-subtitle">Choose your account type</p>
+        </div>
+
+        <!-- 2 Account Type Switcher Tabs -->
+        <div class="signup-tabs" id="signup-switcher-tabs">
+          <button id="signup-tab-student" class="signup-tab active" onclick="switchSignupRole('student')">
+            <i data-lucide="book-open"></i>
+            <span>Student</span>
+          </button>
+          <button id="signup-tab-faculty" class="signup-tab" onclick="switchSignupRole('faculty')">
+            <i data-lucide="award"></i>
+            <span>Faculty</span>
+          </button>
+        </div>
+
+        <!-- 1. Student Signup Form -->
+        <form id="form-signup-student" onsubmit="handleSignupSubmit(event, 'student')">
+          <div class="form-group">
+            <label class="form-label" for="signup-stu-name">Full Name *</label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="signup-stu-name" class="form-input" placeholder="e.g. Alexander Mercer" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-stu-id">Student ID / Roll Number *</label>
+            <div class="input-wrapper">
+              <i data-lucide="badge-check" class="input-icon"></i>
+              <input type="text" id="signup-stu-id" class="form-input" placeholder="e.g. 24211A6792" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-stu-email">College Email (@bvrit.ac.in) *</label>
+            <div class="input-wrapper">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="email" id="signup-stu-email" class="form-input" placeholder="student@bvrit.ac.in" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-stu-pass">Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="signup-stu-pass" class="form-input" placeholder="•••••••• (min 6 characters)"
+                minlength="6" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-stu-confirm-pass">Confirm Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="shield-check" class="input-icon"></i>
+              <input type="password" id="signup-stu-confirm-pass" class="form-input" placeholder="••••••••"
+                minlength="6" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>Register Student Account</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- 2. Faculty Signup Form -->
+        <form id="form-signup-faculty" style="display: none;" onsubmit="handleSignupSubmit(event, 'faculty')">
+          <div class="form-group">
+            <label class="form-label" for="signup-fac-name">Full Name *</label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="signup-fac-name" class="form-input" placeholder="e.g. Dr. Alistair Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-fac-dept">Department *</label>
+            <div class="input-wrapper">
+              <i data-lucide="building" class="input-icon"></i>
+              <select id="signup-fac-dept" class="form-input form-select" required
+                onchange="handleFacultyDeptChange(this.value)">
+                <option value="" disabled selected>Select your department</option>
+                <option value="Computer Science and Engineering (CSE)">Computer Science and Engineering (CSE)</option>
+                <option value="Computer Science and Data Science (CSD)">Computer Science and Data Science (CSD)</option>
+                <option value="Computer Science and Artificial Intelligence (CSAI)">Computer Science and Artificial
+                  Intelligence (CSAI)</option>
+                <option value="Artificial Intelligence and Machine Learning (AIML)">Artificial Intelligence and Machine
+                  Learning (AIML)</option>
+                <option value="Information Technology (IT)">Information Technology (IT)</option>
+                <option value="Electronics and Communication Engineering (ECE)">Electronics and Communication
+                  Engineering (ECE)</option>
+                <option value="Electrical and Electronics Engineering (EEE)">Electrical and Electronics Engineering
+                  (EEE)</option>
+                <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                <option value="Chemical Engineering (CHE)">Chemical Engineering (CHE)</option>
+                <option value="Biotechnology (BT)">Biotechnology (BT)</option>
+                <option value="Electronics and Instrumentation Engineering (EIE)">Electronics and Instrumentation
+                  Engineering (EIE)</option>
+                <option value="Computer Science and Engineering (Cyber Security)">Computer Science and Engineering
+                  (Cyber Security)</option>
+                <option value="Computer Science and Engineering (Internet of Things)">Computer Science and Engineering
+                  (Internet of Things)</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <!-- Conditional Other Department Field -->
+          <div class="form-group" id="form-group-fac-dept-other" style="display: none;">
+            <label class="form-label" for="signup-fac-dept-other">Enter your department *</label>
+            <div class="input-wrapper">
+              <i data-lucide="edit-3" class="input-icon"></i>
+              <input type="text" id="signup-fac-dept-other" class="form-input"
+                placeholder="e.g. Aeronautical Engineering">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-fac-email">College Email (@bvrit.ac.in) *</label>
+            <div class="input-wrapper">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="email" id="signup-fac-email" class="form-input" placeholder="faculty@bvrit.ac.in" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-fac-pass">Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="signup-fac-pass" class="form-input" placeholder="•••••••• (min 6 characters)"
+                minlength="6" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-fac-confirm-pass">Confirm Password *</label>
+            <div class="input-wrapper">
+              <i data-lucide="shield-check" class="input-icon"></i>
+              <input type="password" id="signup-fac-confirm-pass" class="form-input" placeholder="••••••••"
+                minlength="6" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>Register Faculty Account</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- Signup Footer -->
+        <div class="auth-footer-links" style="margin-top: 20px;">
+          <a href="#" class="auth-link" onclick="showAuthView('student')">&larr; Already have an account? Sign In</a>
+          <a href="#" class="auth-link" onclick="showHomeView()"><i data-lucide="arrow-left"
+              style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:3px;"></i>Home</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 3. DASHBOARD PORTAL SHELL -->
+  <div id="app-shell" class="app-shell" style="display: none;">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon" style="background: transparent; box-shadow: none; padding: 0;">
+          <img src="favicon.svg" alt="Pathshala Logo"
+            style="width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 2px 10px rgba(37,99,235,0.35);">
+        </div>
+        <span class="logo-text">Pathshala</span>
+      </div>
+
+      <!-- User Profile Box -->
+      <div class="user-profile">
+        <div id="user-avatar" class="user-avatar">AD</div>
+        <div class="user-info">
+          <div id="user-display-name" class="user-name">Loading...</div>
+          <div id="user-display-role" class="user-role">Student</div>
+        </div>
+      </div>
+
+      <!-- Navigation Link List -->
+      <nav class="sidebar-nav-container">
+        <ul id="sidebar-nav" class="nav-menu">
+          <!-- Populated dynamically based on user role -->
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="handleLogout()">
+          <i data-lucide="log-out"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT CONTENT -->
+    <main class="main-content">
+      <!-- HEADER STATUS BAR -->
+      <header class="top-bar">
+        <div class="page-title">
+          <h1 id="main-view-title">Dashboard</h1>
+          <p id="main-view-subtitle">Access student progress and features.</p>
+        </div>
+        <div>
+          <button id="mobile-menu-toggle" class="menu-toggle" onclick="toggleMobileSidebar()">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==========================================
+           A. STUDENT DASHBOARD PANELS
+           ========================================== -->
+
+      <!-- 1. Dedicated Student Home Dashboard -->
+      <div id="panel-student-home" class="dashboard-panel">
+        <!-- Personalized Welcome Banner -->
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <h2 id="stu-home-greeting">Good Day, <span id="stu-home-name">Student</span>! 👋</h2>
+            <p>Welcome back! Here's what's happening with your academics today.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div id="stu-home-date-badge"
+              style="background: rgba(255,255,255,0.18); padding: 7px 16px; border-radius: 9999px; font-size: 12px; font-weight: 600; border: 1px solid rgba(255,255,255,0.25); display: inline-flex; align-items: center; gap: 6px;">
+              <i data-lucide="calendar" style="width:14px; height:14px;"></i>
+              <span id="stu-home-date-str">Thursday, Aug 20, 2026</span>
+            </div>
+            <span class="badge badge-info"
+              style="font-size: 12px; padding: 7px 14px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">🎓
+              Student Portal</span>
+          </div>
+        </div>
+
+        <!-- Quick Actions Bar -->
+        <div class="quick-actions-bar">
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-overview')">
+            <i data-lucide="book-open"></i>
+            <span>📚 View Courses</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-assignments')">
+            <i data-lucide="edit-3"></i>
+            <span>📝 Assignments</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-materials')">
+            <i data-lucide="file-text"></i>
+            <span>📖 Study Notes</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-videos')">
+            <i data-lucide="video"></i>
+            <span>🎥 Video Lessons</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-attendance')">
+            <i data-lucide="calendar"></i>
+            <span>📊 Attendance</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-grades')">
+            <i data-lucide="award"></i>
+            <span>🏅 Report Card</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigatePanel('panel-student-notifications')">
+            <i data-lucide="bell"></i>
+            <span>🔔 Notifications</span>
+          </button>
+        </div>
+
+        <!-- Quick Statistics Cards Grid -->
+        <div class="stats-grid">
+          <div class="stats-card" onclick="navigatePanel('panel-student-overview')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Enrolled Courses</span>
+              <span id="stu-home-stat-courses" class="stats-value">0</span>
+              <span style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">Active Classrooms</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(37,99,235,0.1); color: var(--primary);">
+              <i data-lucide="book-open"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-student-assignments')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Assignments</span>
+              <span id="stu-home-stat-assignments" class="stats-value">0</span>
+              <span style="font-size: 11px; color: var(--warning); font-weight: 600; margin-top: 2px;">Pending
+                Tasks</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(245,158,11,0.1); color: var(--warning);">
+              <i data-lucide="edit-3"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-student-attendance')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Attendance</span>
+              <span id="stu-home-stat-attendance" class="stats-value">100%</span>
+              <span style="font-size: 11px; color: var(--success); font-weight: 600; margin-top: 2px;">Overall
+                Presence</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(16,185,129,0.1); color: var(--success);">
+              <i data-lucide="calendar"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-student-quizzes')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Upcoming Quizzes</span>
+              <span id="stu-home-stat-quizzes" class="stats-value">0</span>
+              <span style="font-size: 11px; color: #8b5cf6; font-weight: 600; margin-top: 2px;">This Week</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">
+              <i data-lucide="help-circle"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Academic Overview Card -->
+        <div class="academic-overview-card">
+          <div class="academic-info-item">
+            <span class="academic-info-label">Roll Number</span>
+            <span id="stu-home-roll" class="academic-info-value">24211A6797</span>
+          </div>
+          <div class="academic-info-item">
+            <span class="academic-info-label">Department</span>
+            <span id="stu-home-dept" class="academic-info-value">Computer Science & Engineering</span>
+          </div>
+          <div class="academic-info-item">
+            <span class="academic-info-label">Academic Year</span>
+            <span class="academic-info-value">Year 2 • Semester IV</span>
+          </div>
+          <div class="academic-info-item" style="min-width: 180px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="academic-info-label">Attendance Rate</span>
+              <span id="stu-home-att-pct" style="font-size: 13px; font-weight: 800; color: var(--primary);">92%</span>
+            </div>
+            <div class="progress-bar-container">
+              <div id="stu-home-att-bar" class="progress-bar-fill success" style="width: 92%;"></div>
+            </div>
+          </div>
+          <div class="academic-info-item" style="align-items: flex-start;">
+            <span class="academic-info-label">Enrollment Status</span>
+            <span class="badge badge-success" style="margin-top: 4px; font-size: 11px; padding: 4px 10px;">● Good
+              Standing</span>
+          </div>
+        </div>
+
+        <!-- 2-Column Responsive Dashboard Body -->
+        <div class="dashboard-row" style="grid-template-columns: 1.6fr 1fr; margin-bottom: 25px;">
+          <!-- Left Column: My Courses & Upcoming Activities -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- My Courses Overview -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="book-open" style="color: var(--primary);"></i>
+                  <span>My Courses</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;"
+                  onclick="navigatePanel('panel-student-overview')">View All Courses &rarr;</button>
+              </div>
+              <div id="stu-home-courses-grid" class="courses-grid"
+                style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Upcoming Activities & Deadlines -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="clock" style="color: var(--warning);"></i>
+                  <span>Upcoming Activities & Deadlines</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;"
+                  onclick="navigatePanel('panel-student-assignments')">All Tasks &rarr;</button>
+              </div>
+              <div id="stu-home-upcoming-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Recent Study Notes -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="download" style="color: var(--primary);"></i>
+                  <span>Recent Study Materials</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;"
+                  onclick="navigatePanel('panel-student-materials')">Study Notes Hub &rarr;</button>
+              </div>
+              <div id="stu-home-materials-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Quizzes, Announcements, Notifications -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- Upcoming Quizzes -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="help-circle" style="color: #8b5cf6;"></i>
+                  <span>Upcoming Quizzes</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;"
+                  onclick="navigatePanel('panel-student-quizzes')">Take Quizzes &rarr;</button>
+              </div>
+              <div id="stu-home-quizzes-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Classroom Board Notices -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="megaphone" style="color: var(--warning);"></i>
+                  <span>Classroom Notice Board</span>
+                </div>
+              </div>
+              <div id="stu-home-announcements-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Recent Notifications -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="bell" style="color: var(--primary);"></i>
+                  <span>Recent Notifications</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;"
+                  onclick="navigatePanel('panel-student-notifications')">View All Notifications &rarr;</button>
+              </div>
+              <div id="stu-home-notifications-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Student Overview / Enrolled Courses -->
+      <div id="panel-student-overview" class="dashboard-panel">
+        <h2 style="margin-bottom: 20px; font-weight: 700; font-size: 18px; color: var(--text-primary);">My Enrolled
+          Classrooms</h2>
+        <div id="grid-student-courses" class="courses-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Video Lessons Panel -->
+      <div id="panel-student-videos" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="video" style="color: var(--primary);"></i>
+              <span>Lectures & Video Lessons</span>
+            </div>
+          </div>
+          <div class="video-grid" id="grid-student-videos">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Notes/PDF Panel -->
+      <div id="panel-student-materials" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="download" style="color: var(--primary);"></i>
+              <span>Study Notes & Reference Material</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Material Title</th>
+                  <th>Type</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-student-materials-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignments Panel -->
+      <div id="panel-student-assignments" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="file-text" style="color: var(--primary);"></i>
+              <span>Classwork & Assignment Deadlines</span>
+            </div>
+          </div>
+          <div class="info-list" id="list-student-assignments">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Quizzes Panel -->
+      <div id="panel-student-quizzes" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="help-circle" style="color: var(--primary);"></i>
+              <span>Quizzes & Short Tests</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Quiz Title</th>
+                  <th>Questions</th>
+                  <th>My Score</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-student-quizzes-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attendance Panel -->
+      <div id="panel-student-attendance" class="dashboard-panel">
+        <div class="dashboard-row">
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="calendar" style="color: var(--primary);"></i>
+                <span>Daily Logins & Classroom Check-ins</span>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="app-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Course Code</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="table-student-attendance-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-block" style="text-align: center; justify-content: center; align-items: center;">
+            <h4 style="font-weight: 700; color: var(--text-secondary); margin-bottom: 20px;">Cumulative Presence</h4>
+            <div
+              style="width: 140px; height: 140px; border-radius: 50%; border: 12px solid var(--border); display: flex; align-items: center; justify-content: center; position: relative;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--primary);" id="student-attendance-ratio">100%
+              </div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 20px;">Calculated against daily
+              check-ins marked by faculty instructors.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grades / Report Card Panel -->
+      <div id="panel-student-grades" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="award" style="color: var(--primary);"></i>
+              <span id="student-grades-cgpa-title">Academic Transcript Reports</span>
+            </div>
+            <span id="student-grades-cgpa-badge" class="badge badge-success" style="font-size: 11px; display: none;">Grade: A+ (First Class with Distinction)</span>
+          </div>
+          <div id="student-academic-records-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 0; text-align: center; margin-bottom: 20px;">
+            <!-- Dynamically populated from db.academicRecords -->
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Evaluation Item</th>
+                  <th>Type</th>
+                  <th>Grade Score</th>
+                  <th>Feedback Comments</th>
+                </tr>
+              </thead>
+              <tbody id="table-student-all-grades-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Panel -->
+      <div id="panel-student-notifications" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="bell" style="color: var(--primary);"></i>
+              <span>Recent Portal Notifications</span>
+            </div>
+          </div>
+          <div class="info-list" id="list-student-notifications">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile View Panel -->
+      <div id="panel-student-profile" class="dashboard-panel">
+        <div class="card-block" style="max-width: 600px;">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="user" style="color: var(--primary);"></i>
+              <span>Profile Settings & Credentials</span>
+            </div>
+          </div>
+          <form onsubmit="handleProfileUpdate(event)">
+            <div class="form-group">
+              <label class="form-label">Full Display Name</label>
+              <input type="text" id="profile-name" class="form-input" style="padding-left:14px;" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email (Non-editable)</label>
+              <input type="email" id="profile-email" class="form-input" style="padding-left:14px;" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" id="profile-password" class="form-input" style="padding-left:14px;"
+                placeholder="Leave blank to keep existing password">
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i data-lucide="check"></i>
+              <span>Save Settings</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- ==========================================
+           B. PARENT DASHBOARD PANELS
+           ========================================== -->
+
+      <!-- 1. Dedicated Parent Home Dashboard -->
+      <div id="panel-parent-home" class="dashboard-panel">
+        <!-- Personalized Welcome Banner -->
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <h2>Child Performance Overview</h2>
+            <p>Welcome, <span id="par-home-name">Parent</span>. Track your child's academic progress, attendance, and fees.</p>
+          </div>
+        </div>
+
+        <!-- Linked Student Profile Card -->
+        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm); flex-wrap: wrap; gap: 20px;" id="par-home-child-card">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(37,99,235,0.08); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">
+              <i data-lucide="user"></i>
+            </div>
+            <div>
+              <span class="badge badge-info" style="margin-bottom: 4px; font-size: 11px;">Linked Student</span>
+              <h2 id="par-home-child-fullname" style="font-size: 17px; font-weight: 800; color: var(--text-primary); margin: 2px 0;">Student Name</h2>
+              <p id="par-home-child-meta" style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">Roll No: N/A • Dept: N/A • Semester: N/A</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Quick Overview Cards Grid -->
+        <div class="stats-grid">
+          <div class="stats-card" onclick="navigatePanel('panel-parent-attendance')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Overall Attendance</span>
+              <span id="par-stat-att" class="stats-value">N/A</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(16,185,129,0.1); color: var(--success);">
+              <i data-lucide="calendar"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-parent-grades')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Academic CGPA</span>
+              <span id="par-stat-cgpa" class="stats-value">N/A</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">
+              <i data-lucide="award"></i>
+            </div>
+          </div>
+          <div class="stats-card" style="cursor: default;">
+            <div class="stats-info">
+              <span class="stats-label">Active Courses</span>
+              <span id="par-stat-courses" class="stats-value">0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(37,99,235,0.1); color: var(--primary);">
+              <i data-lucide="book-open"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-parent-fees')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Fee Dues</span>
+              <span id="par-stat-fee-due" class="stats-value">₹0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(245,158,11,0.1); color: var(--warning);">
+              <i data-lucide="credit-card"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-Column Responsive Dashboard Body -->
+        <div class="dashboard-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 25px;">
+          <!-- Left Column: Recent Activities -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="activity" style="color: var(--primary);"></i>
+                  <span>Recent Academic Activity</span>
+                </div>
+              </div>
+              <div id="par-home-activities-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Notifications -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="bell" style="color: var(--warning);"></i>
+                  <span>Important Notices</span>
+                </div>
+              </div>
+              <div id="par-home-notifications-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Parent Student Progress Overview -->
+      <div id="panel-parent-overview" class="dashboard-panel">
+        <!-- Linked child card header -->
+        <div
+          style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm); flex-wrap: wrap; gap: 15px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div
+              style="width: 50px; height: 50px; border-radius: 50%; background: rgba(37,99,235,0.08); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">
+              <i data-lucide="user"></i>
+            </div>
+            <div>
+              <span class="badge badge-info" style="margin-bottom: 4px; font-size: 11px;">Linked Student</span>
+              <h2 id="parent-child-name"
+                style="font-size: 17px; font-weight: 800; color: var(--text-primary); margin: 2px 0;">Sathwik</h2>
+              <p id="parent-child-email" style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">Roll No:
+                24211a6797 • Dept: Computer Science & Engineering • student@bvrit.ac.in • Semester 4</p>
+            </div>
+          </div>
+          <div class="flex-space gap-md">
+            <div class="stats-card"
+              style="margin-bottom: 0; min-width: 150px; padding:15px; border-color:var(--border);">
+              <div class="stats-info">
+                <span class="stats-label" style="font-size:10px;">Current CGPA</span>
+                <span id="parent-child-avg-grade" class="stats-value"
+                  style="font-size: 20px; color: var(--primary);">9.2 CGPA</span>
+              </div>
+            </div>
+            <div class="stats-card"
+              style="margin-bottom: 0; min-width: 150px; padding:15px; border-color:var(--border);">
+              <div class="stats-info">
+                <span class="stats-label" style="font-size:10px;">Attendance Ratio</span>
+                <span id="parent-child-attendance" class="stats-value"
+                  style="font-size: 20px; color: var(--success);">92%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <!-- Child's Courses status -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="book-open" style="color: var(--primary);"></i>
+                <span>Child's Curricula & Classroom Status (6 Courses)</span>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="app-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Course Title</th>
+                    <th>Faculty Instructor</th>
+                    <th>Evaluation Status</th>
+                  </tr>
+                </thead>
+                <tbody id="table-parent-courses-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Classroom notices list -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="megaphone" style="color: var(--warning);"></i>
+                <span>Child's Classroom Board Notices</span>
+              </div>
+            </div>
+            <div id="list-parent-announcements" class="info-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent Child Attendance Report -->
+      <div id="panel-parent-attendance" class="dashboard-panel">
+        <!-- Attendance Summary Card -->
+        <div class="card-block" style="margin-bottom: 25px;">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="calendar" style="color: var(--success);"></i>
+              <span>Overall Attendance Performance (120 Working Days)</span>
+            </div>
+            <span class="badge badge-success" style="font-size: 11px;">● 92% Presence Rate (Good Standing)</span>
+          </div>
+          <div style="padding: 10px 0;">
+            <div class="progress-bar-container" style="height: 10px; margin-bottom: 16px;">
+              <div class="progress-bar-fill success" style="width: 92%;"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span
+                  style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Present
+                  Days</span>
+                <h4 style="font-size: 18px; font-weight: 800; color: var(--success); margin: 2px 0 0 0;">110 Days</h4>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span
+                  style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Absent
+                  Days</span>
+                <h4 style="font-size: 18px; font-weight: 800; color: #ef4444; margin: 2px 0 0 0;">10 Days</h4>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span
+                  style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Total
+                  Working Days</span>
+                <h4 style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">120 Days
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="file-text" style="color: var(--primary);"></i>
+              <span>Individual Class Attendance Log (All 120 Sessions)</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Session Date</th>
+                  <th>Course Code & Subject Title</th>
+                  <th>Attendance Verification</th>
+                </tr>
+              </thead>
+              <tbody id="table-parent-attendance-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent child marks and grades panel -->
+      <div id="panel-parent-grades" class="dashboard-panel">
+        <!-- Semester Academic History & Progression -->
+        <div class="card-block" style="margin-bottom: 25px;">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="award" style="color: #8b5cf6;"></i>
+              <span id="parent-grades-cgpa-title">Semester-Wise Academic History</span>
+            </div>
+            <span id="parent-grades-cgpa-badge" class="badge badge-success" style="font-size: 11px; display: none;">Grade: A+ (First Class with Distinction)</span>
+          </div>
+          <div id="parent-academic-records-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 0; text-align: center;">
+            <!-- Dynamically populated from db.academicRecords -->
+          </div>
+        </div>
+
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="book-open" style="color: var(--primary);"></i>
+              <span>Semester 4 Continuous Internal Evaluations & Lab Grades</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Assignment / Examination</th>
+                  <th>Evaluation Type</th>
+                  <th>Score Obtained</th>
+                  <th>Faculty Feedback</th>
+                </tr>
+              </thead>
+              <tbody id="table-parent-grades-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent outstanding Fee Status panel -->
+      <div id="panel-parent-fees" class="dashboard-panel">
+        <!-- Fee Structure Breakdown Card -->
+        <div class="card-block" style="margin-bottom: 25px;">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="pie-chart" style="color: var(--primary);"></i>
+              <span>Annual Academic Fee Structure & Breakdown (Total: ₹1,20,000)</span>
+            </div>
+            <span class="badge badge-success" style="font-size: 11px;">75% Paid (₹90,000 Cleared)</span>
+          </div>
+          <div style="padding: 10px 0;">
+            <div
+              style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; text-align: center; margin-bottom: 16px;">
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Tuition Fee</span>
+                <h5 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">₹80,000
+                </h5>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Examination Fee</span>
+                <h5 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">₹10,000
+                </h5>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Lab & Infra Fee</span>
+                <h5 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">₹15,000
+                </h5>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Library & Services</span>
+                <h5 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">₹5,000
+                </h5>
+              </div>
+              <div
+                style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
+                <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Other Academic</span>
+                <h5 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">₹10,000
+                </h5>
+              </div>
+            </div>
+            <div class="progress-bar-container" style="height: 8px; margin-bottom: 10px;">
+              <div class="progress-bar-fill success" style="width: 75%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px;">
+              <span style="color: var(--success); font-weight: 700;">Paid: ₹90,000 (Installments 1, 2 & 3)</span>
+              <span style="color: var(--warning); font-weight: 700;">Remaining: ₹30,000 (Due September 10, 2026)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="credit-card" style="color: var(--primary);"></i>
+              <span>Installment Payment History & Pending Invoices</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Installment Description</th>
+                  <th>Due Date</th>
+                  <th>Amount</th>
+                  <th>Payment Status</th>
+                  <th>Receipt / Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-parent-fees-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent Teacher inbox Messages panel -->
+      <div id="panel-parent-messages" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="mail" style="color: var(--primary);"></i>
+              <span>Direct Teacher Advisories</span>
+            </div>
+          </div>
+          <div class="info-list" id="list-parent-messages">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent Notification Alerts panel -->
+      <div id="panel-parent-notifications" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="bell" style="color: var(--primary);"></i>
+              <span>Parent Notification Feed</span>
+            </div>
+          </div>
+          <div class="info-list" id="list-parent-notifications">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==========================================
+           C. FACULTY DASHBOARD PANELS
+           ========================================== -->
+
+      <!-- 1. Dedicated Faculty Home Dashboard -->
+      <div id="panel-faculty-home" class="dashboard-panel">
+        <!-- Personalized Welcome Banner -->
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <h2>Hello, <span id="fac-home-name">Professor</span> 👋</h2>
+            <p>Welcome back! Here's an overview of your teaching activities.</p>
+          </div>
+          <div class="welcome-badge">
+            <span class="badge badge-info"
+              style="font-size: 13px; padding: 6px 14px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">👨‍🏫
+              Faculty Desk</span>
+          </div>
+        </div>
+
+        <!-- Overview Stat Cards Grid -->
+        <div class="stats-grid">
+          <div class="stats-card" onclick="navigatePanel('panel-faculty-courses')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Courses Handled</span>
+              <span id="fac-home-stat-courses" class="stats-value">0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(37,99,235,0.1); color: var(--primary);">
+              <i data-lucide="folder-plus"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-faculty-overview')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Total Enrolled Students</span>
+              <span id="fac-home-stat-students" class="stats-value">0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(16,185,129,0.1); color: var(--success);">
+              <i data-lucide="users"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-faculty-overview')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Pending Submissions</span>
+              <span id="fac-home-stat-submissions" class="stats-value">0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(245,158,11,0.1); color: var(--warning);">
+              <i data-lucide="inbox"></i>
+            </div>
+          </div>
+          <div class="stats-card" onclick="navigatePanel('panel-faculty-creator')" style="cursor: pointer;">
+            <div class="stats-info">
+              <span class="stats-label">Quizzes & Tests</span>
+              <span id="fac-home-stat-quizzes" class="stats-value">0</span>
+            </div>
+            <div class="stats-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">
+              <i data-lucide="help-circle"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-Column Responsive Dashboard Body -->
+        <div class="dashboard-row" style="grid-template-columns: 1.6fr 1fr; margin-bottom: 25px;">
+          <!-- Left Column: Classrooms & Submissions -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- Active Handled Courses -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="book-open" style="color: var(--primary);"></i>
+                  <span>My Active Classrooms</span>
+                </div>
+                <button class="btn btn-primary" style="padding: 4px 10px; font-size: 11px;"
+                  onclick="triggerAddCourseModal()">+ New Course</button>
+              </div>
+              <div id="fac-home-courses-grid" class="courses-grid"
+                style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Submissions Needing Grading -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="inbox" style="color: var(--warning);"></i>
+                  <span>Recent Submissions Awaiting Evaluation</span>
+                </div>
+              </div>
+              <div id="fac-home-submissions-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Quick Actions, Notices & Feed -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- Quick Teaching Actions -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="zap" style="color: var(--primary);"></i>
+                  <span>Quick Teaching Actions</span>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="btn btn-secondary" style="font-size: 12px; padding: 10px; text-align: left;"
+                  onclick="navigatePanel('panel-faculty-courses')">
+                  <i data-lucide="plus-circle"
+                    style="width:14px; height:14px; display:inline-block; margin-right:4px;"></i> Create Course
+                </button>
+                <button class="btn btn-secondary" style="font-size: 12px; padding: 10px; text-align: left;"
+                  onclick="navigatePanel('panel-faculty-materials')">
+                  <i data-lucide="upload-cloud"
+                    style="width:14px; height:14px; display:inline-block; margin-right:4px;"></i> Upload Notes
+                </button>
+                <button class="btn btn-secondary" style="font-size: 12px; padding: 10px; text-align: left;"
+                  onclick="navigatePanel('panel-faculty-creator')">
+                  <i data-lucide="edit-3" style="width:14px; height:14px; display:inline-block; margin-right:4px;"></i>
+                  Post Homework
+                </button>
+                <button class="btn btn-secondary" style="font-size: 12px; padding: 10px; text-align: left;"
+                  onclick="navigatePanel('panel-faculty-attendance')">
+                  <i data-lucide="calendar"
+                    style="width:14px; height:14px; display:inline-block; margin-right:4px;"></i> Take Attendance
+                </button>
+              </div>
+            </div>
+
+            <!-- Published Announcements -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="megaphone" style="color: var(--warning);"></i>
+                  <span>Recent Class Announcements</span>
+                </div>
+              </div>
+              <div id="fac-home-announcements-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Notifications Feed -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="bell" style="color: var(--primary);"></i>
+                  <span>Activity & System Notices</span>
+                </div>
+              </div>
+              <div id="fac-home-notifications-list" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Faculty classroom overview -->
+      <div id="panel-faculty-overview" class="dashboard-panel">
+        <h2 style="margin-bottom: 20px; font-weight: 700; font-size: 18px; color: var(--text-primary);">Assigned
+          Classrooms</h2>
+        <div id="grid-faculty-courses" class="courses-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Faculty Course Management Panel -->
+      <div id="panel-faculty-courses" class="dashboard-panel">
+        <div class="flex-space" style="margin-bottom: 20px;">
+          <div>
+            <h2 style="font-weight: 700; font-size: 18px; color: var(--text-primary);">Course Management Catalog</h2>
+            <p style="font-size: 13px; color: var(--text-secondary);">Create, update, and manage your academic course
+              offerings.</p>
+          </div>
+          <button class="btn btn-primary" onclick="triggerAddCourseModal()">
+            <i data-lucide="plus"></i>
+            <span>Create New Course</span>
+          </button>
+        </div>
+        <div id="grid-faculty-manage-courses" class="courses-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Specific classroom course manager panel -->
+      <div id="panel-faculty-classroom" class="dashboard-panel">
+        <div class="flex-space" style="margin-bottom: 20px;">
+          <button class="btn btn-secondary" onclick="navigatePanel('panel-faculty-overview')">
+            <i data-lucide="arrow-left"></i>
+            <span>Back to classrooms</span>
+          </button>
+          <div class="badge badge-info" id="classroom-faculty-code">CODE</div>
+        </div>
+
+        <div class="dashboard-row" style="grid-template-columns: 3fr 2fr;">
+          <!-- Course submissions and materials tabs -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- Submissions list needing grading -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="inbox" style="color: var(--secondary);"></i>
+                  <span>Pending Student Submissions</span>
+                </div>
+              </div>
+              <div id="list-faculty-submissions" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- List of existing Assignments -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="file-text"></i>
+                  <span>Published Course Assignments</span>
+                </div>
+              </div>
+              <div id="list-faculty-assignments" class="info-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Side panels: Announcement post, direct parent messaging, roster list -->
+          <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- Create Classroom Announcement notice -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="megaphone" style="color: var(--warning);"></i>
+                  <span>Post Classroom notice</span>
+                </div>
+              </div>
+              <form onsubmit="handleCreateAnnouncement(event)">
+                <div class="form-group">
+                  <label class="form-label" for="announce-text">Message Content</label>
+                  <textarea id="announce-text" class="form-input" style="padding-left:14px; min-height: 80px;"
+                    placeholder="Notice to all students in classroom..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-secondary btn-block">
+                  <i data-lucide="send"></i>
+                  <span>Post announcement</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Direct Message Parents Form -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="mail" style="color: var(--primary);"></i>
+                  <span>Direct Advisory Message Parents</span>
+                </div>
+              </div>
+              <form onsubmit="handleSendTeacherMessage(event)">
+                <div class="form-group">
+                  <label class="form-label" for="msg-parent-select">Select Target Parent</label>
+                  <select id="msg-parent-select" class="form-input" style="padding-left:14px;" required>
+                    <!-- Seeded dynamically -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="msg-parent-body">Message text</label>
+                  <textarea id="msg-parent-body" class="form-input" style="padding-left:14px; min-height: 80px;"
+                    placeholder="Enter message regarding student performance..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  <i data-lucide="send"></i>
+                  <span>Send Direct Message</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Student Roster list -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="users"></i>
+                  <span>Classroom Student Roster</span>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="app-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-faculty-roster-body">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Add Course Materials Panel -->
+      <div id="panel-faculty-materials" class="dashboard-panel">
+        <div class="dashboard-row">
+          <!-- Left side: Uploaders -->
+          <div style="display:flex; flex-direction:column; gap:25px;">
+            <!-- Upload Notes PDF Form -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="file" style="color: var(--primary);"></i>
+                  <span>Publish Study Notes / PDF references</span>
+                </div>
+              </div>
+              <form onsubmit="handleUploadPDF(event)">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="form-label">Target Classroom</label>
+                    <select id="pdf-course-select" class="form-input" style="padding-left:14px;" required>
+                      <!-- Dynamically seeded -->
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Material Title</label>
+                    <input type="text" id="pdf-title" class="form-input" style="padding-left:14px;"
+                      placeholder="e.g. Perceptron Weights Cheat Sheet" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Mock PDF File / Link Address</label>
+                  <input type="text" id="pdf-link" class="form-input" style="padding-left:14px;"
+                    placeholder="e.g. study_guides/cs101_perceptron.pdf" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="upload"></i>
+                  <span>Upload Study Material</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Upload Lecture Video Form -->
+            <div class="card-block">
+              <div class="card-header">
+                <div class="card-title">
+                  <i data-lucide="video" style="color: var(--primary);"></i>
+                  <span>Publish Video Lecture Lessons</span>
+                </div>
+              </div>
+              <form onsubmit="handleUploadVideo(event)">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="form-label">Target Classroom</label>
+                    <select id="video-course-select" class="form-input" style="padding-left:14px;" required>
+                      <!-- Dynamically seeded -->
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Lecture Lesson Title</label>
+                    <input type="text" id="video-title" class="form-input" style="padding-left:14px;"
+                      placeholder="e.g. Gradient Descent Logic" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Video Stream Address</label>
+                  <input type="text" id="video-link" class="form-input" style="padding-left:14px;"
+                    placeholder="e.g. lessons/gradient_descent.mp4" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="upload"></i>
+                  <span>Upload Video Lecture</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right side: Existing Material List -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="download"></i>
+                <span>Active Classroom Materials</span>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="app-table">
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Material Title</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody id="table-faculty-materials-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Quiz Creator Panel -->
+      <div id="panel-faculty-creator" class="dashboard-panel">
+        <div class="dashboard-row">
+          <!-- Quiz Builder -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="plus-circle" style="color: var(--primary);"></i>
+                <span>Create Interactive MCQ Quiz</span>
+              </div>
+            </div>
+            <form onsubmit="handleCreateQuiz(event)">
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="form-label">Target Classroom</label>
+                  <select id="quiz-course-select" class="form-input" style="padding-left:14px;" required>
+                    <!-- Seeded -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Quiz Title</label>
+                  <input type="text" id="quiz-title" class="form-input" style="padding-left:14px;"
+                    placeholder="e.g. SQL JOIN constraints" required>
+                </div>
+              </div>
+
+              <div
+                style="border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px; background:#f8fafc;">
+                <h4 style="font-weight: 700; font-size:13px; margin-bottom:12px; color:var(--primary);">Dynamic MCQ
+                  Question Details</h4>
+                <div class="form-group">
+                  <label class="form-label">Question Text</label>
+                  <input type="text" id="quiz-q-text" class="form-input" style="padding-left:14px;"
+                    placeholder="e.g. Which keyword joins tables by matching entries?" required>
+                </div>
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="form-label">Option A</label>
+                    <input type="text" id="quiz-opt-a" class="form-input" style="padding-left:14px;"
+                      placeholder="e.g. OUTER" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Option B</label>
+                    <input type="text" id="quiz-opt-b" class="form-input" style="padding-left:14px;"
+                      placeholder="e.g. INNER JOIN" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Option C</label>
+                    <input type="text" id="quiz-opt-c" class="form-input" style="padding-left:14px;"
+                      placeholder="e.g. SORT" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Correct Option</label>
+                    <select id="quiz-correct-opt" class="form-input" style="padding-left:14px;" required>
+                      <option value="0">Option A</option>
+                      <option value="1">Option B</option>
+                      <option value="2">Option C</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i data-lucide="help-circle"></i>
+                <span>Publish Quiz offering</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Create Homework Assignment form -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="file-plus" style="color: var(--secondary);"></i>
+                <span>Create Homework Assignment</span>
+              </div>
+            </div>
+            <form onsubmit="handleCreateAssignment(event)">
+              <div class="form-group">
+                <label class="form-label">Target Classroom</label>
+                <select id="assign-course-select" class="form-input" style="padding-left:14px;" required>
+                  <!-- Seeded -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Assignment Title</label>
+                <input type="text" id="assign-title" class="form-input" style="padding-left:14px;"
+                  placeholder="e.g. Term Essay" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <input type="date" id="assign-due" class="form-input" style="padding-left:14px;" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Instructions / Description</label>
+                <textarea id="assign-desc" class="form-input" style="padding-left:14px; min-height: 80px;"
+                  placeholder="Explain parameters..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-block">
+                <i data-lucide="send"></i>
+                <span>Publish Assignment</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Attendance Register Panel -->
+      <div id="panel-faculty-attendance" class="dashboard-panel">
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="calendar" style="color: var(--primary);"></i>
+              <span>Classroom Attendance Register Desk</span>
+            </div>
+            <div class="flex-space gap-sm">
+              <select id="attendance-course-select" class="form-input"
+                style="padding-left:14px; min-width: 180px; margin-bottom: 0;" onchange="loadAttendanceRegisterSheet()">
+                <!-- Seeded -->
+              </select>
+              <input type="date" id="attendance-register-date" class="form-input"
+                style="padding-left:14px; max-width: 160px; margin-bottom: 0;" onchange="loadAttendanceRegisterSheet()">
+            </div>
+          </div>
+
+          <div class="table-container mt-md">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Presence check</th>
+                </tr>
+              </thead>
+              <tbody id="table-faculty-attendance-register-body">
+                <!-- Seeded dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="text-right mt-md">
+            <button class="btn btn-primary" onclick="saveAttendanceRegisterSheet()">
+              <i data-lucide="check"></i>
+              <span>Save Register Sheet</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Performance Reports panel -->
+      <div id="panel-faculty-reports" class="dashboard-panel">
+        <div class="stats-grid" id="faculty-report-stats-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="dashboard-row">
+          <!-- Student list performance summaries -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="trending-up" style="color: var(--primary);"></i>
+                <span>Student Grade Averages</span>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="app-table">
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Average Grade Score</th>
+                    <th>Quizzes Taken</th>
+                    <th>Assignments Graded</th>
+                  </tr>
+                </thead>
+                <tbody id="table-faculty-reports-grades-body">
+                  <!-- Seeded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Recent Quiz Attempts overview -->
+          <div class="card-block">
+            <div class="card-header">
+              <div class="card-title">
+                <i data-lucide="award" style="color: var(--secondary);"></i>
+                <span>Recent Quiz Attempts</span>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="app-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Quiz Title</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="table-faculty-reports-quizzes-body">
+                  <!-- Seeded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- MODALS -->
+
+  <!-- Submit Assignment Modal -->
+  <div id="modal-submit-assignment" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-submit-title" style="font-weight: 700;">Submit Assignment</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-submit-assignment')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form onsubmit="handleAssignmentSubmit(event)">
+        <input type="hidden" id="submit-assignment-id">
+        <input type="hidden" id="submit-course-id">
+
+        <div class="form-group">
+          <label class="form-label">Submission Text / Links</label>
+          <textarea id="submit-content" class="form-input" style="padding-left: 14px; min-height: 150px;"
+            placeholder="Write your submission answers or paste project repository link..." required></textarea>
+        </div>
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 12px;">
+          <button type="button" class="btn btn-secondary"
+            onclick="closeModal('modal-submit-assignment')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check"></i>
+            <span>Upload Submission</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Take Student Quiz Modal -->
+  <div id="modal-take-quiz" class="modal-overlay">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="modal-take-quiz-title" style="font-weight: 700; color:var(--text-primary);">Take Quiz</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-take-quiz')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form onsubmit="handleQuizSubmit(event)">
+        <input type="hidden" id="take-quiz-id">
+        <input type="hidden" id="take-quiz-course-id">
+
+        <div id="take-quiz-questions-viewport">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div
+          style="text-align: right; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-take-quiz')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check-square"></i>
+            <span>Submit Quiz Answers</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Watch Video Lesson Modal -->
+  <div id="modal-watch-video" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 id="modal-watch-video-title" style="font-weight: 700;">Watch Lecture Video</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-watch-video')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Video player wrapper -->
+      <div class="mock-player-container">
+        <div class="mock-player-video-icon">
+          <i data-lucide="video" style="width:60px; height:60px; color:rgba(255,255,255,0.7);"></i>
+        </div>
+        <div class="mock-player-controls">
+          <button class="btn" style="background:none; border:none; padding:0; color:white; display:flex;"
+            onclick="showToast('Video Playing/Paused (Simulated)')">
+            <i data-lucide="play" style="width:20px; height:20px;"></i>
+          </button>
+          <div class="mock-progress-bar">
+            <div class="mock-progress-fill"></div>
+          </div>
+          <span style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.8);">04:22 / 10:00</span>
+        </div>
+      </div>
+
+      <div style="text-align: right;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-watch-video')">Close Player</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grade Submission Modal -->
+  <div id="modal-grade-submission" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-weight: 700;">Grade Student Submission</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-grade-submission')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form onsubmit="handleGradeSubmit(event)">
+        <input type="hidden" id="grade-submission-id">
+
+        <div
+          style="margin-bottom: 20px; background: rgba(0, 0, 0, 0.02); border: 1px solid var(--border); padding: 14px; border-radius: var(--radius-md);">
+          <strong style="display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">Student's
+            Submission:</strong>
+          <p id="grade-student-work"
+            style="font-size: 13px; white-space: pre-wrap; line-height: 1.5; color: var(--text-primary);"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="grade-value">Grade (out of 100)</label>
+          <input type="number" id="grade-value" class="form-input" style="padding-left: 14px;" min="0" max="100"
+            placeholder="e.g. 95" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="grade-feedback">Written Feedback</label>
+          <textarea id="grade-feedback" class="form-input" style="padding-left: 14px; min-height: 80px;"
+            placeholder="Add comments, corrections, and general feedback..." required></textarea>
+        </div>
+
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 12px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-grade-submission')">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            <i data-lucide="check"></i>
+            <span>Commit Grade</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Course Modal -->
+  <div id="modal-course-form" class="modal-overlay">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="modal-course-form-title" style="font-weight: 700;">Create New Course</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-course-form')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form onsubmit="handleSaveCourse(event)">
+        <input type="hidden" id="course-edit-id">
+
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="form-label" for="course-title-input">Course Name *</label>
+            <input type="text" id="course-title-input" class="form-input" style="padding-left:14px;"
+              placeholder="e.g. Advanced Machine Learning" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="course-code-input">Course Code *</label>
+            <input type="text" id="course-code-input" class="form-input" style="padding-left:14px;"
+              placeholder="e.g. CS-404" required>
+          </div>
+        </div>
+
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="form-label" for="course-duration-input">Course Duration *</label>
+            <input type="text" id="course-duration-input" class="form-input" style="padding-left:14px;"
+              placeholder="e.g. 8 Weeks or 1 Semester" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="course-category-input">Course Category *</label>
+            <input type="text" id="course-category-input" class="form-input" style="padding-left:14px;"
+              placeholder="e.g. Computer Science" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="course-desc-input">Course Description *</label>
+          <textarea id="course-desc-input" class="form-input" style="padding-left:14px; min-height: 80px;"
+            placeholder="Describe course objectives, syllabus overview, and learning outcomes..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="course-resources-input">Course Materials & Resources *</label>
+          <textarea id="course-resources-input" class="form-input" style="padding-left:14px; min-height: 80px;"
+            placeholder="List reference books, lecture PDFs, dataset links, or online materials..." required></textarea>
+        </div>
+
+        <div
+          style="text-align: right; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-course-form')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check"></i>
+            <span id="btn-save-course-label">Save Course</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Course Confirmation Modal -->
+  <div id="modal-delete-course-confirm" class="modal-overlay">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 style="font-weight: 700; color: #ef4444; display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="alert-triangle"></i>
+          <span>Confirm Course Deletion</span>
+        </h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-delete-course-confirm')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <input type="hidden" id="delete-course-target-id">
+      <div style="padding: 10px 0 20px;">
+        <p style="font-size: 14px; color: var(--text-primary); line-height: 1.6;" id="delete-course-confirm-msg">
+          Are you sure you want to delete this course?
+        </p>
+        <p style="font-size: 12px; color: #ef4444; font-weight: 600; margin-top: 10px;">
+          ⚠️ Warning: This will permanently remove the course and its materials from student course lists.
+        </p>
+      </div>
+      <div
+        style="text-align: right; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px;">
+        <button type="button" class="btn btn-secondary"
+          onclick="closeModal('modal-delete-course-confirm')">Cancel</button>
+        <button type="button" class="btn" style="background: #ef4444; color: white;" onclick="executeDeleteCourse()">
+          <i data-lucide="trash-2"></i>
+          <span>Delete Course</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student View Course Details Modal -->
+  <div id="modal-student-view-course" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-info" id="stu-modal-course-code">CODE</span>
+          <h3 id="stu-modal-course-title" style="font-weight: 700; font-size: 20px; margin-top: 4px;">Course Title</h3>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modal-student-view-course')">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 10px 0;">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="user"></i>
+            Faculty: <strong id="stu-modal-course-faculty"
+              style="color: var(--text-primary);">Instructor</strong></span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="clock"></i>
+            Duration: <strong id="stu-modal-course-duration" style="color: var(--text-primary);">8 Weeks</strong></span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);"><i data-lucide="tag"></i>
+            Category: <strong id="stu-modal-course-category" style="color: var(--text-primary);">General</strong></span>
+        </div>
+        <div
+          style="background: var(--bg-darkest); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 6px;">Course Overview &
+            Description</h4>
+          <p id="stu-modal-course-desc"
+            style="font-size: 13.5px; color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></p>
+        </div>
+        <div
+          style="background: var(--bg-darkest); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">Learning Materials
+            & Resources</h4>
+          <p id="stu-modal-course-resources"
+            style="font-size: 13.5px; color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></p>
+        </div>
+      </div>
+      <div style="text-align: right; border-top: 1px solid var(--border); padding-top: 15px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-student-view-course')">Close
+          View</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
