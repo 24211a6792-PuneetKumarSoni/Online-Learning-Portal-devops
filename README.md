@@ -52,3 +52,12 @@ To run the backend locally without Docker:
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express, MongoDB (Mongoose), JWT for authentication
 - **Containerization**: Docker, Docker Compose
+
+## Features Overview
+
+- **Authentication & Authorization**: Secure login for Students, Faculties, and Parents using JWT-based authentication.
+- **Academic Management**: Capabilities to manage courses and academic terms.
+- **Student Module**: Access to enrolled courses, academic records, attendance, and result tracking.
+- **Faculty Module**: Ability to manage courses, take attendance, upload results, and manage course material.
+- **Parent Module**: Monitor student progress and review notifications.
+- **Notification System**: Notifications for important academic events and updates.
