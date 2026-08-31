@@ -341,6 +341,7 @@ router.get('/sync', async (req, res, next) => {
       student: {
         cgpa: studentUser.cgpa
       },
+      enrollments,
       courses,
       materials,
       videos,
