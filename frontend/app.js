@@ -214,7 +214,7 @@ async function syncLiveDB() {
             db.submissions = facSyncRes.submissions.map(s => ({ id: s._id || s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
             db.quizzes = facSyncRes.quizzes.map(q => ({ id: q._id || q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
             db.quizAttempts = facSyncRes.quizAttempts.map(q => ({ id: q._id || q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
-            db.attendance = facSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: a.studentId, courseId: a.courseId, date: a.date, status: a.status }));
+            db.attendance = facSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: a.studentId ? (a.studentId._id || a.studentId.id || a.studentId) : null, courseId: a.courseId ? (a.courseId._id || a.courseId.id || a.courseId) : null, date: a.date, status: a.status }));
             db.announcements = facSyncRes.announcements.map(a => ({ id: a._id || a.id, courseId: a.courseId, text: a.text, date: a.date }));
             db.materials = facSyncRes.materials.map(m => ({ id: m._id || m.id, courseId: m.courseId, title: m.title, type: m.type, link: m.link }));
             db.videos = facSyncRes.videos.map(v => ({ id: v._id || v.id, courseId: v.courseId, title: v.title, link: v.link }));
@@ -237,7 +237,7 @@ async function syncLiveDB() {
             db.submissions = parSyncRes.submissions.map(s => ({ id: s._id || s.id, studentId: s.studentId, courseId: s.courseId, assignmentId: s.assignmentId, grade: s.grade, feedback: s.feedback, content: s.content }));
             db.quizzes = parSyncRes.quizzes.map(q => ({ id: q._id || q.id, courseId: q.courseId, title: q.title, questions: q.questions }));
             db.quizAttempts = parSyncRes.quizAttempts.map(q => ({ id: q._id || q.id, studentId: q.studentId, courseId: q.courseId, quizId: q.quizId, score: q.score, date: q.date }));
-            db.attendance = parSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: "usr_student", courseId: a.courseId, date: a.date, status: a.status })); // 'usr_student' matches Parent frontend logic
+            db.attendance = parSyncRes.attendance.map(a => ({ id: a._id || a.id, studentId: a.studentId ? (a.studentId._id || a.studentId.id || a.studentId) : null, courseId: a.courseId ? (a.courseId._id || a.courseId.id || a.courseId) : null, date: a.date, status: a.status }));
             db.announcements = parSyncRes.announcements.map(a => ({ id: a._id || a.id, courseId: a.courseId, text: a.text, date: a.date }));
             db.fees = parSyncRes.fees.map(f => ({ id: f._id || f.id, parentId: f.parentId, childId: f.childId, title: f.title, due: f.due, amount: f.amount, status: f.status, receipt: f.receipt }));
             db.messages = parSyncRes.messages.map(m => ({ id: m._id || m.id, parentId: m.parentId, facultyId: m.facultyId, text: m.text, date: m.date }));
@@ -1878,8 +1878,41 @@ function renderPanelContent(panelId) {
   else if (panelId === "panel-parent-attendance") {
     const tbody = document.getElementById("table-parent-attendance-body");
     tbody.innerHTML = "";
-    const childAtts = db.attendance.filter(a => a.studentId === "usr_student" || (currentUser && a.studentId === currentUser.childId));
+    const childId = db.parentDashboardData?.child?.id || (currentUser ? currentUser.childId : null);
+    const childAtts = childId ? db.attendance.filter(a => a.studentId === childId) : [];
     childAtts.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+    const total = childAtts.length;
+    const presents = childAtts.filter(a => a.status === 'Present').length;
+    const absents = total - presents;
+    const ratio = total > 0 ? Math.round((presents / total) * 100) : 0;
+
+    const overallTitle = document.getElementById("par-att-overall-title");
+    if (overallTitle) overallTitle.innerText = `Overall Attendance Performance (${total} Working Days)`;
+
+    const overallBadge = document.getElementById("par-att-overall-badge");
+    if (overallBadge) {
+      overallBadge.innerText = `● ${ratio}% Presence Rate ${ratio >= 75 ? "(Good Standing)" : "(Needs Attention)"}`;
+      overallBadge.className = `badge ${ratio >= 75 ? "badge-success" : "badge-danger"}`;
+    }
+
+    const progress = document.getElementById("par-att-progress");
+    if (progress) {
+      progress.style.width = `${ratio}%`;
+      progress.className = `progress-bar-fill ${ratio >= 75 ? "success" : "danger"}`;
+    }
+
+    const presentDays = document.getElementById("par-att-present-days");
+    if (presentDays) presentDays.innerText = `${presents} Days`;
+
+    const absentDays = document.getElementById("par-att-absent-days");
+    if (absentDays) absentDays.innerText = `${absents} Days`;
+
+    const totalDays = document.getElementById("par-att-total-days");
+    if (totalDays) totalDays.innerText = `${total} Days`;
+
+    const logTitle = document.getElementById("par-att-log-title");
+    if (logTitle) logTitle.innerText = `Individual Class Attendance Log (All ${total} Sessions)`;
 
     if (childAtts.length === 0) {
       tbody.innerHTML = `<tr><td colspan="3" class="text-muted" style="text-align:center;">No presence check logs found.</td></tr>`;

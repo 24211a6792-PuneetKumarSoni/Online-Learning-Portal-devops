@@ -1272,13 +1272,13 @@
           <div class="card-header">
             <div class="card-title">
               <i data-lucide="calendar" style="color: var(--success);"></i>
-              <span>Overall Attendance Performance (120 Working Days)</span>
+              <span id="par-att-overall-title">Overall Attendance Performance</span>
             </div>
-            <span class="badge badge-success" style="font-size: 11px;">● 92% Presence Rate (Good Standing)</span>
+            <span id="par-att-overall-badge" class="badge badge-success" style="font-size: 11px;">● 92% Presence Rate (Good Standing)</span>
           </div>
           <div style="padding: 10px 0;">
             <div class="progress-bar-container" style="height: 10px; margin-bottom: 16px;">
-              <div class="progress-bar-fill success" style="width: 92%;"></div>
+              <div id="par-att-progress" class="progress-bar-fill success" style="width: 92%;"></div>
             </div>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
               <div
@@ -1286,21 +1286,21 @@
                 <span
                   style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Present
                   Days</span>
-                <h4 style="font-size: 18px; font-weight: 800; color: var(--success); margin: 2px 0 0 0;">110 Days</h4>
+                <h4 id="par-att-present-days" style="font-size: 18px; font-weight: 800; color: var(--success); margin: 2px 0 0 0;">110 Days</h4>
               </div>
               <div
                 style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
                 <span
                   style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Absent
                   Days</span>
-                <h4 style="font-size: 18px; font-weight: 800; color: #ef4444; margin: 2px 0 0 0;">10 Days</h4>
+                <h4 id="par-att-absent-days" style="font-size: 18px; font-weight: 800; color: #ef4444; margin: 2px 0 0 0;">10 Days</h4>
               </div>
               <div
                 style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
                 <span
                   style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Total
                   Working Days</span>
-                <h4 style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">120 Days
+                <h4 id="par-att-total-days" style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin: 2px 0 0 0;">120 Days
                 </h4>
               </div>
             </div>
@@ -1311,7 +1311,7 @@
           <div class="card-header">
             <div class="card-title">
               <i data-lucide="file-text" style="color: var(--primary);"></i>
-              <span>Individual Class Attendance Log (All 120 Sessions)</span>
+              <span id="par-att-log-title">Individual Class Attendance Log</span>
             </div>
           </div>
           <div class="table-container">
