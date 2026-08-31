@@ -109,6 +109,13 @@ async function syncLiveDB() {
               title: c.title,
               facultyId: c.facultyId ? (c.facultyId._id || c.facultyId) : null
             }));
+            if (syncRes.enrollments) {
+              db.enrollments = syncRes.enrollments.map(e => ({
+                id: e._id || e.id,
+                studentId: e.studentId,
+                courseId: e.courseId ? (e.courseId._id || e.courseId.id || e.courseId) : null
+              }));
+            }
             db.materials = syncRes.materials.map(m => ({
               id: m._id || m.id,
               courseId: m.courseId ? (m.courseId._id || m.courseId.id || m.courseId) : null,

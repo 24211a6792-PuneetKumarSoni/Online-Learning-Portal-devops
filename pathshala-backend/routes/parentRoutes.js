@@ -396,6 +396,8 @@ router.get('/sync', async (req, res, next) => {
     const courseIds = childEnrolls.map(e => e.courseId);
 
     const courses = await Course.find({ _id: { $in: courseIds } }).populate('facultyId', 'name email role');
+    const assignments = await Assignment.find({ courseId: { $in: courseIds } });
+    const quizzes = await Quiz.find({ courseId: { $in: courseIds } });
     const attendance = await Attendance.find({ studentId: childId });
     const submissions = await Submission.find({ studentId: childId });
     const quizAttempts = await QuizAttempt.find({ studentId: childId });
@@ -419,7 +421,10 @@ router.get('/sync', async (req, res, next) => {
         semester: child.semester,
         cgpa: child.cgpa
       },
+      enrollments: childEnrolls,
       courses,
+      assignments,
+      quizzes,
       attendance,
       submissions,
       quizAttempts,
