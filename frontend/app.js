@@ -284,13 +284,25 @@ function showToast(message, type = "success") {
 // ==========================================
 // VIEW SWITCH ROUTING CONTROLLER
 // ==========================================
+function toggleHomeNav() {
+  const links = document.getElementById("home-nav-links");
+  if (links) links.classList.toggle("open");
+}
+
+function closeHomeNav() {
+  const links = document.getElementById("home-nav-links");
+  if (links) links.classList.remove("open");
+}
+
 function showHomeView() {
+  closeHomeNav();
   document.getElementById("view-home").style.display = "block";
   document.getElementById("view-auth").style.display = "none";
   document.getElementById("app-shell").style.display = "none";
 }
 
 function showAuthView(role = "student") {
+  closeHomeNav();
   document.getElementById("view-home").style.display = "none";
   document.getElementById("view-auth").style.display = "block";
   document.getElementById("app-shell").style.display = "none";
@@ -303,6 +315,7 @@ function showAuthView(role = "student") {
 }
 
 function showSignupView(role = "student") {
+  closeHomeNav();
   document.getElementById("view-home").style.display = "none";
   document.getElementById("view-auth").style.display = "block";
   document.getElementById("app-shell").style.display = "none";
@@ -770,6 +783,11 @@ function navigatePanel(panelId, navItemId = null) {
 
   updateHeaderTitle(panelId);
   renderPanelContent(panelId);
+
+  // Auto-close sidebar on mobile navigation
+  if (window.innerWidth <= 1024) {
+    toggleMobileSidebar(false);
+  }
 }
 
 function updateHeaderTitle(panelId) {
@@ -789,7 +807,7 @@ function updateHeaderTitle(panelId) {
     titleEl.innerText = "Student Classrooms";
     subtitleEl.innerText = "Enter your active academic course pages.";
   } else if (panelId === "panel-student-videos") {
-    titleEl.innerText = "Video Lectures";
+    titleEl.innerText = "Video Lessons";
     subtitleEl.innerText = "Watch recorded classrooms and stream online study lectures.";
   } else if (panelId === "panel-student-materials") {
     titleEl.innerText = "Study Materials";
@@ -855,8 +873,19 @@ function updateHeaderTitle(panelId) {
   }
 }
 
-function toggleMobileSidebar() {
-  document.querySelector(".sidebar").classList.toggle("open");
+function toggleMobileSidebar(forceState) {
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  if (!sidebar) return;
+
+  const willOpen = typeof forceState === "boolean" ? forceState : !sidebar.classList.contains("open");
+  if (willOpen) {
+    sidebar.classList.add("open");
+    if (overlay) overlay.classList.add("active");
+  } else {
+    sidebar.classList.remove("open");
+    if (overlay) overlay.classList.remove("active");
+  }
 }
 
 // ==========================================

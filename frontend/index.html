@@ -29,17 +29,20 @@
           style="width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 2px 10px rgba(37,99,235,0.3);">
         <span>Pathshala</span>
       </a>
-      <ul class="home-nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#courses">Courses</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul class="home-nav-links" id="home-nav-links">
+        <li><a href="#about" onclick="closeHomeNav()">About</a></li>
+        <li><a href="#features" onclick="closeHomeNav()">Features</a></li>
+        <li><a href="#courses" onclick="closeHomeNav()">Courses</a></li>
+        <li><a href="#testimonials" onclick="closeHomeNav()">Testimonials</a></li>
+        <li><a href="#contact" onclick="closeHomeNav()">Contact</a></li>
       </ul>
-      <div>
-        <button class="btn btn-primary" onclick="showAuthView('student')">
+      <div class="home-nav-actions">
+        <button class="btn btn-primary btn-nav-signin" onclick="showAuthView('student')">
           <i data-lucide="log-in"></i>
-          <span>Portal Sign In</span>
+          <span>Sign In</span>
+        </button>
+        <button class="home-menu-toggle" id="home-menu-toggle" onclick="toggleHomeNav()" aria-label="Toggle navigation menu">
+          <i data-lucide="menu"></i>
         </button>
       </div>
     </nav>
@@ -69,7 +72,7 @@
         <p>Pathshala bridges the gap between classrooms and homes, establishing a seamless digital network for holistic
           development and clear communication.</p>
       </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+      <div class="about-container">
         <div>
           <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--primary);">Bridging Learning &
             Monitoring</h3>
@@ -81,7 +84,7 @@
             video lecture repositories, online quizzes, fee receipt records, and automated notifications so that nothing
             goes unnoticed.</p>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="about-stats-grid">
           <div
             style="background: var(--bg-darkest); padding: 25px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border);">
             <div style="font-size: 32px; font-weight: 800; color: var(--primary);">99%</div>
@@ -593,14 +596,22 @@
 
   <!-- 3. DASHBOARD PORTAL SHELL -->
   <div id="app-shell" class="app-shell" style="display: none;">
+    <!-- Sidebar Overlay Backdrop for Mobile -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+
     <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-logo">
-        <div class="logo-icon" style="background: transparent; box-shadow: none; padding: 0;">
-          <img src="favicon.svg" alt="Pathshala Logo"
-            style="width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 2px 10px rgba(37,99,235,0.35);">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="logo-icon" style="background: transparent; box-shadow: none; padding: 0;">
+            <img src="favicon.svg" alt="Pathshala Logo"
+              style="width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 2px 10px rgba(37,99,235,0.35);">
+          </div>
+          <span class="logo-text">Pathshala</span>
         </div>
-        <span class="logo-text">Pathshala</span>
+        <button class="sidebar-close-btn" onclick="toggleMobileSidebar()" aria-label="Close sidebar">
+          <i data-lucide="x"></i>
+        </button>
       </div>
 
       <!-- User Profile Box -->
@@ -636,7 +647,7 @@
           <p id="main-view-subtitle">Access student progress and features.</p>
         </div>
         <div>
-          <button id="mobile-menu-toggle" class="menu-toggle" onclick="toggleMobileSidebar()">
+          <button id="mobile-menu-toggle" class="menu-toggle" onclick="toggleMobileSidebar()" aria-label="Toggle navigation menu">
             <i data-lucide="menu"></i>
           </button>
         </div>
@@ -1015,7 +1026,7 @@
             </div>
             <span id="student-grades-cgpa-badge" class="badge badge-success" style="font-size: 11px; display: none;">Grade: A+ (First Class with Distinction)</span>
           </div>
-          <div id="student-academic-records-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 0; text-align: center; margin-bottom: 20px;">
+          <div id="student-academic-records-grid" class="academic-history-grid" style="padding: 10px 0; text-align: center; margin-bottom: 20px;">
             <!-- Dynamically populated from db.academicRecords -->
           </div>
           <div class="table-container">
@@ -1280,7 +1291,7 @@
             <div class="progress-bar-container" style="height: 10px; margin-bottom: 16px;">
               <div id="par-att-progress" class="progress-bar-fill success" style="width: 92%;"></div>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
+            <div class="att-summary-grid">
               <div
                 style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
                 <span
@@ -1342,7 +1353,7 @@
             </div>
             <span id="parent-grades-cgpa-badge" class="badge badge-success" style="font-size: 11px; display: none;">Grade: A+ (First Class with Distinction)</span>
           </div>
-          <div id="parent-academic-records-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 0; text-align: center;">
+          <div id="parent-academic-records-grid" class="academic-history-grid" style="padding: 10px 0; text-align: center;">
             <!-- Dynamically populated from db.academicRecords -->
           </div>
         </div>
@@ -1385,8 +1396,7 @@
             <span class="badge badge-success" style="font-size: 11px;">75% Paid (₹90,000 Cleared)</span>
           </div>
           <div style="padding: 10px 0;">
-            <div
-              style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; text-align: center; margin-bottom: 16px;">
+            <div class="fee-breakdown-grid">
               <div
                 style="background: #f8fafc; padding: 12px; border-radius: var(--radius-md); border: 1px solid #edf2f7;">
                 <span style="font-size: 10px; font-weight: 600; color: var(--text-secondary);">Tuition Fee</span>
@@ -1588,7 +1598,7 @@
                   <span>Quick Teaching Actions</span>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="faculty-quick-actions-grid">
                 <button class="btn btn-secondary" style="font-size: 12px; padding: 10px; text-align: left;"
                   onclick="navigatePanel('panel-faculty-courses')">
                   <i data-lucide="plus-circle"
